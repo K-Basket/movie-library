@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-const Movies = () => {
+const MoviesPage = () => {
   const location = useLocation();
 
   return (
@@ -10,10 +10,10 @@ const Movies = () => {
       <button type="button">queue</button>
 
       <Link to={`id`} state={{ from: location }}>
-        <h3 style={{ color: 'salmon' }}>Link</h3>
+        <h3 style={{ color: 'green' }}>Movie Card (id)</h3>
       </Link>
     </>
   );
 };
 
-export default Movies;
+export default MoviesPage;

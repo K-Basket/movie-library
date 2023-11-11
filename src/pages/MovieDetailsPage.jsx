@@ -1,15 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
 
-const MoviesDetails = () => {
+const MovieDetailsPage = () => {
   const location = useLocation();
 
   return (
     <>
-      <h1>MoviesDetails pages</h1>
+      <h1>Movie Details pages</h1>
 
       <Link to={location.state?.from ?? '/home'}>Go back</Link>
     </>
   );
 };
 
-export default MoviesDetails;
+export default MovieDetailsPage;

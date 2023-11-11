@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-const Home = () => {
+const HomePage = () => {
   const location = useLocation();
 
   return (
@@ -8,10 +8,10 @@ const Home = () => {
       <h1>Home pages</h1>
 
       <Link to={`movies/id`} state={{ from: location }}>
-        <h3 style={{ color: 'salmon' }}>Link</h3>
+        <h3 style={{ color: 'green' }}>Movie Card (id)</h3>
       </Link>
     </>
   );
 };
 
-export default Home;
+export default HomePage;

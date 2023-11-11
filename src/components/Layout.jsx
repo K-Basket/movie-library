@@ -9,10 +9,6 @@ export const Layout = () => {
         <nav>
           <NavLinkStyled to="/">Home</NavLinkStyled>
           <NavLinkStyled to="/movies">My Library</NavLinkStyled>
-          {/* <NavLinkStyled to="/movies">My movies</NavLinkStyled> */}
-
-          {/* <NavLinkStyled to="/watched">Watched</NavLinkStyled>
-          <NavLinkStyled to="/queue">Queue</NavLinkStyled> */}
         </nav>
       </header>
 
