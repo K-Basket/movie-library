@@ -2,18 +2,21 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import sprite from 'images/sprite.svg';
 import {
+  Footer,
   Header,
   HeaderWrap,
   IconButton,
   Input,
+  Main,
   Nav,
   NavLinkStyled,
+  Wrapper,
 } from './Layout.styled';
 import { Container } from 'utils/container.styled';
 
 export const Layout = () => {
   return (
-    <>
+    <Wrapper>
       <Header>
         <Container>
           <HeaderWrap>
@@ -41,15 +44,21 @@ export const Layout = () => {
         </Container>
       </Header>
 
-      <main>
+      <Main>
         <Suspense fallback={<div>Loading...</div>}>
-          <Outlet />
+          <Container>
+            <Outlet />
+          </Container>
         </Suspense>
-      </main>
+      </Main>
 
-      <footer>
-        <h2>Footer</h2>
-      </footer>
-    </>
+      <Footer>
+        <Container>
+          <p>
+            &#169; 2023 | All Rights Reserved | Developed by Kostiantyn Koshyk
+          </p>
+        </Container>
+      </Footer>
+    </Wrapper>
   );
 };

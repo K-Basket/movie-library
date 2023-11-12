@@ -1,5 +1,7 @@
 export const whiteColor = '#ffffff';
 export const blackColor = '#000000';
+export const grayColor = '#545454';
+export const bgColor = '#F7F7F7;';
 
 export const transition = '250ms cubic-bezier(0.4, 0, 0.2, 1) 0s';
 export const shadow =

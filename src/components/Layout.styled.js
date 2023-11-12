@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import {
+  bgColor,
   blackColor,
   device,
+  grayColor,
   shadow,
   transition,
   whiteColor,
@@ -14,6 +16,13 @@ import headerBgMob1x from '../images/header-bg-mob-1x.jpg';
 import headerBgMob2x from '../images/header-bg-mob-2x.jpg';
 import headerBgTabl1x from '../images/header-bg-tabl-1x.jpg';
 import headerBgTabl2x from '../images/header-bg-tabl-2x.jpg';
+
+export const Wrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: ${whiteColor};
+`;
 
 export const Header = styled.header`
   padding-top: 20px;
@@ -220,5 +229,31 @@ export const IconButton = styled.button`
   @media ${device.desktop} {
     top: 13px;
     right: 16px;
+  }
+`;
+
+// Main
+
+export const Main = styled.main`
+  /* background-color: gray; */
+  flex-grow: 1;
+  /* flex: 1 0 auto; */
+`;
+
+// Footer
+
+export const Footer = styled.footer`
+  padding-top: 29px;
+  padding-bottom: 29px;
+  background-color: ${bgColor};
+
+  & p {
+    text-align: center;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+
+    color: ${grayColor};
   }
 `;
