@@ -1,64 +1,33 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import sprite from 'images/sprite.svg';
-import {
-  Footer,
-  Header,
-  HeaderWrap,
-  IconButton,
-  Input,
-  Main,
-  Nav,
-  NavLinkStyled,
-  Wrapper,
-} from './Layout.styled';
+
+import { Footer } from './Footer';
+import { Header } from './Header';
 import { Container } from 'utils/container.styled';
+import { Wrapper } from './Layout.styled';
 
 export const Layout = () => {
   return (
     <Wrapper>
-      <Header>
+      <header>
         <Container>
-          <HeaderWrap>
-            <Nav>
-              <NavLinkStyled to="/">Home</NavLinkStyled>
-              <NavLinkStyled to="/movies">My Library</NavLinkStyled>
-
-              <form>
-                <Input
-                  type="text"
-                  name="searchQuery"
-                  autoComplete="off"
-                  autoFocus
-                  placeholder="Movie search"
-                />
-
-                <IconButton>
-                  <svg width="16px" height="16px">
-                    <use href={`${sprite}#icon-search`}></use>
-                  </svg>
-                </IconButton>
-              </form>
-            </Nav>
-          </HeaderWrap>
+          <Header />
         </Container>
-      </Header>
+      </header>
 
-      <Main>
+      <main>
         <Suspense fallback={<div>Loading...</div>}>
           <Container>
             <Outlet />
           </Container>
         </Suspense>
-      </Main>
+      </main>
 
-      <Footer>
+      <footer>
         <Container>
-          <p>
-            &#169; 2023 | All Rights Reserved | Developed by Kostiantyn Koshyk
-          </p>
+          <Footer />
         </Container>
-      </Footer>
+      </footer>
     </Wrapper>
   );
 };
