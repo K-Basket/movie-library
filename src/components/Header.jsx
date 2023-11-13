@@ -9,7 +9,6 @@ import {
   SearchResult,
   WrappLinkLogo,
 } from './Header.styled';
-import { whiteColor } from 'utils/variables.styled';
 
 export const Header = () => {
   const handleMovieSearch = evt => {
