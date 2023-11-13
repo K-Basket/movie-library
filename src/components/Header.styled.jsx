@@ -100,14 +100,20 @@ export const HeaderWrap = styled.div`
 `;
 
 export const Nav = styled.nav`
+  margin-top: 14px;
+
   & form {
     position: relative;
+    margin-top: 8px;
   }
 
   @media ${device.tablet} {
     display: flex;
     gap: 4px;
-    padding-top: 16px;
+
+    & form {
+      margin-top: 0px;
+    }
   }
 
   @media ${device.desktop} {
@@ -116,8 +122,10 @@ export const Nav = styled.nav`
 `;
 
 export const NavLinkStyled = styled(NavLink)`
-  margin-top: 14px;
-  margin-bottom: 8px;
+  &:first-child {
+    margin-right: 4px;
+  }
+
   padding: 10px 26px;
   display: inline-block;
 
@@ -143,6 +151,10 @@ export const NavLinkStyled = styled(NavLink)`
     padding: 12px 24px;
     order: 1;
     margin: 0;
+
+    &:first-child {
+      margin-right: 0px;
+    }
   }
 
   @media ${device.desktop} {
@@ -189,9 +201,14 @@ export const Input = styled.input`
 `;
 
 export const IconButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   position: absolute;
-  top: 10px;
+  top: 50%;
   right: 10px;
+  transform: translate(0, -50%);
 
   stroke: ${blackColor};
   fill: none;
@@ -200,7 +217,7 @@ export const IconButton = styled.button`
 
   &:focus,
   &:hover {
-    transform: scale(1.15);
+    transform: translate(0, -50%) scale(1.15);
     transition: transform ${transition};
   }
 
@@ -209,7 +226,6 @@ export const IconButton = styled.button`
   }
 
   @media ${device.desktop} {
-    top: 13px;
     right: 16px;
   }
 `;
@@ -225,16 +241,22 @@ export const SearchResult = styled.p`
   color: ${whiteColor};
 `;
 
+export const WrappLinkLogo = styled.div`
+  text-align: center;
+
+  @media ${device.tablet} {
+    text-align: start;
+  }
+`;
+
 export const LinkLogo = styled(Link)`
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
 
   margin-bottom: 20px;
 
   @media ${device.tablet} {
-    justify-content: start;
     margin-bottom: 16px;
   }
   @media ${device.desktop} {

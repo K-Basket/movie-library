@@ -7,9 +7,16 @@ import {
   Nav,
   NavLinkStyled,
   SearchResult,
+  WrappLinkLogo,
 } from './Header.styled';
+import { whiteColor } from 'utils/variables.styled';
 
 export const Header = () => {
+  const handleMovieSearch = evt => {
+    evt.preventDefault();
+    console.log('Button Movie Search');
+  };
+
   return (
     <HeaderWrap>
       <Nav>
@@ -25,12 +32,7 @@ export const Header = () => {
             placeholder="Movie search"
           />
 
-          <IconButton
-            type="button"
-            onClick={() => {
-              console.log('Hi');
-            }}
-          >
+          <IconButton type="submit" onClick={handleMovieSearch}>
             <svg width="16px" height="16px">
               <use href={`${sprite}#icon-search`}></use>
             </svg>
@@ -45,12 +47,14 @@ export const Header = () => {
         </SearchResult>
       )}
 
-      <LinkLogo to="/">
-        <svg>
-          <use href={`${sprite}#icon-film`}></use>
-        </svg>
-        <p>Movie Library</p>
-      </LinkLogo>
+      <WrappLinkLogo>
+        <LinkLogo to="/">
+          <svg>
+            <use href={`${sprite}#icon-film`}></use>
+          </svg>
+          <p>Movie Library</p>
+        </LinkLogo>
+      </WrappLinkLogo>
     </HeaderWrap>
   );
 };

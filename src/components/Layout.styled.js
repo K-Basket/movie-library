@@ -22,8 +22,8 @@ export const Wrapper = styled.div`
   }
 
   & footer {
-    padding-top: 29px;
-    padding-bottom: 29px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     background-color: ${bgColor};
   }
 `;
