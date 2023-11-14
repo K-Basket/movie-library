@@ -6,7 +6,7 @@ export const FooterCont = styled.p`
   flex-direction: column;
   text-align: center;
 
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: normal;
 
@@ -16,5 +16,7 @@ export const FooterCont = styled.p`
     flex-direction: row;
     justify-content: center;
     gap: 4px;
+
+    font-size: 16px;
   }
 `;

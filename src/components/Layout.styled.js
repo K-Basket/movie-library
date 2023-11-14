@@ -22,8 +22,13 @@ export const Wrapper = styled.div`
   }
 
   & footer {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: ${bgColor};
+
+    @media ${device.tablet} {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
   }
 `;
