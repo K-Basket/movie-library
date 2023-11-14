@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import {
   blackColor,
   device,
+  redColor,
   shadow,
   transition,
   whiteColor,
@@ -167,6 +168,48 @@ export const NavLinkStyled = styled(NavLink)`
   }
 `;
 
+export const SearchResult = styled.p`
+  margin-top: 8px;
+  padding-left: 14px;
+
+  flex-grow: 1;
+
+  font-size: 10px;
+  font-weight: 400;
+  color: ${whiteColor};
+`;
+
+export const WrappBtn = styled.div`
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin-bottom: 16px;
+`;
+
+export const Button = styled.button`
+  padding: 10px 26px;
+  display: inline-block;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: calc(14 / 12);
+  text-transform: uppercase;
+
+  color: ${({ $active }) => ($active ? `${whiteColor}` : `${'#B92F2C'}`)};
+  background-color: ${({ $active }) =>
+    $active ? `${redColor}` : `${whiteColor}`};
+
+  border: none;
+  border-radius: 100px;
+
+  &:hover {
+    transform: scale(1.03);
+    transition: transform ${transition};
+  }
+
+  box-shadow: ${shadow};
+`;
+
 export const Input = styled.input`
   padding-top: 10px;
   padding-bottom: 10px;
@@ -228,17 +271,6 @@ export const IconButton = styled.button`
   @media ${device.desktop} {
     right: 16px;
   }
-`;
-
-export const SearchResult = styled.p`
-  margin-top: 8px;
-  padding-left: 14px;
-
-  flex-grow: 1;
-
-  font-size: 10px;
-  font-weight: 400;
-  color: ${whiteColor};
 `;
 
 export const WrappLinkLogo = styled.div`

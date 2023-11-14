@@ -1,5 +1,6 @@
 import sprite from 'images/sprite.svg';
 import {
+  Button,
   HeaderWrap,
   IconButton,
   Input,
@@ -7,18 +8,25 @@ import {
   Nav,
   NavLinkStyled,
   SearchResult,
+  WrappBtn,
   WrappLinkLogo,
 } from './Header.styled';
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 export const Header = () => {
+  const { pathname } = useLocation();
+  const [isActive, setIsActive] = useState(true);
+
   const handleMovieSearch = evt => {
     evt.preventDefault();
     console.log('Button Movie Search');
   };
 
-  const { pathname } = useLocation();
-  const isPathHome = pathname === '/';
+  const onMakeActiveBtn = evt => {
+    const content = evt.target.textContent;
+    setIsActive(content === 'Watched' ? true : false);
+  };
 
   return (
     <HeaderWrap>
@@ -26,7 +34,7 @@ export const Header = () => {
         <NavLinkStyled to="/">Home</NavLinkStyled>
         <NavLinkStyled to="/movies">My Library</NavLinkStyled>
 
-        {isPathHome && (
+        {pathname === '/' && (
           <form>
             <Input
               type="text"
@@ -45,11 +53,22 @@ export const Header = () => {
         )}
       </Nav>
 
-      {/* Якщо не знайдено - true, в прротилежному - false */}
+      {/* Якщо не знайдено - true, в протилежному - false */}
       {true && (
         <SearchResult>
           Search result not successful. Enter <br /> the correct movie name.
         </SearchResult>
+      )}
+
+      {pathname === '/movies' && (
+        <WrappBtn>
+          <Button $active={isActive} onClick={onMakeActiveBtn}>
+            Watched
+          </Button>
+          <Button $active={!isActive} onClick={onMakeActiveBtn}>
+            Queue
+          </Button>
+        </WrappBtn>
       )}
 
       <WrappLinkLogo>
