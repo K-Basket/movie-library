@@ -213,13 +213,17 @@ export const Button = styled.button`
 
   border: none;
   border-radius: 100px;
+  box-shadow: ${shadow};
 
   &:hover {
     transform: scale(1.03);
     transition: transform ${transition};
   }
 
-  box-shadow: ${shadow};
+  @media ${device.tablet} {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
 `;
 
 export const Input = styled.input`
