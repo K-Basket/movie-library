@@ -110,21 +110,17 @@ export const Nav = styled.nav`
 
   @media ${device.tablet} {
     display: flex;
-    gap: 4px;
+    gap: 12px;
 
     & form {
       margin-top: 0px;
     }
   }
-
-  @media ${device.desktop} {
-    gap: 8px;
-  }
 `;
 
 export const NavLinkStyled = styled(NavLink)`
   &:first-child {
-    margin-right: 4px;
+    margin-right: 10px;
   }
 
   padding: 10px 26px;
@@ -179,11 +175,27 @@ export const SearchResult = styled.p`
   color: ${whiteColor};
 `;
 
+export const WrappLogoBtn = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  @media ${device.tablet} {
+    justify-content: space-between;
+    flex-direction: row;
+  }
+`;
+
 export const WrappBtn = styled.div`
   display: flex;
-  gap: 4px;
   justify-content: center;
+  gap: 10px;
   margin-bottom: 16px;
+
+  @media ${device.tablet} {
+    gap: 12px;
+    order: 1;
+  }
 `;
 
 export const Button = styled.button`

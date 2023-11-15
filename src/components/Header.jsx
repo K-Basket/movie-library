@@ -10,6 +10,7 @@ import {
   SearchResult,
   WrappBtn,
   WrappLinkLogo,
+  WrappLogoBtn,
 } from './Header.styled';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
@@ -40,7 +41,7 @@ export const Header = () => {
               type="text"
               name="searchQuery"
               autoComplete="off"
-              autoFocus
+              // autoFocus
               placeholder="Movie search"
             />
 
@@ -60,25 +61,27 @@ export const Header = () => {
         </SearchResult>
       )}
 
-      {pathname === '/movies' && (
-        <WrappBtn>
-          <Button $active={isActive} onClick={onMakeActiveBtn}>
-            Watched
-          </Button>
-          <Button $active={!isActive} onClick={onMakeActiveBtn}>
-            Queue
-          </Button>
-        </WrappBtn>
-      )}
+      <WrappLogoBtn>
+        {pathname === '/movies' && (
+          <WrappBtn>
+            <Button $active={isActive} onClick={onMakeActiveBtn}>
+              Watched
+            </Button>
+            <Button $active={!isActive} onClick={onMakeActiveBtn}>
+              Queue
+            </Button>
+          </WrappBtn>
+        )}
 
-      <WrappLinkLogo>
-        <LinkLogo to="/">
-          <svg>
-            <use href={`${sprite}#icon-film`}></use>
-          </svg>
-          <p>Movie Library</p>
-        </LinkLogo>
-      </WrappLinkLogo>
+        <WrappLinkLogo>
+          <LinkLogo to="/">
+            <svg>
+              <use href={`${sprite}#icon-film`}></use>
+            </svg>
+            <p>Movie Library</p>
+          </LinkLogo>
+        </WrappLinkLogo>
+      </WrappLogoBtn>
     </HeaderWrap>
   );
 };
