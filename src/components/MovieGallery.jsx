@@ -1,32 +1,34 @@
+import { Link, useLocation } from 'react-router-dom';
 import {
   Card,
   CardContent,
   CardSet,
   CardThumb,
   Item,
+  Title,
 } from './MovieGallery.styled';
-import imgTest from '../images/imgTest.jpg';
-import { Link, useLocation } from 'react-router-dom';
 
-export const MovieGallery = ({ movieId }) => {
+const filmCover =
+  'https://res.cloudinary.com/daqnavarl/image/upload/v1700086246/Other/filmCover_leslnj.jpg';
+
+export const MovieGallery = ({ movieId, title }) => {
   console.log('movieId :>> ', movieId);
   const location = useLocation();
 
   return (
     <>
-      <h2>Movie Gallery component</h2>
-
+      <Title>{title}</Title>
       <CardSet>
         <Item>
           <Link to={`movies/id`} state={{ from: location }}>
             <Card>
               <CardThumb>
-                <img src={imgTest} alt={'imgTestAlt'} />
+                <img src={filmCover} alt={'textAlt'} />
               </CardThumb>
 
               <CardContent>
-                <h3>Movie content</h3>
-                <p>Movie description</p>
+                <h2>Greyhound</h2>
+                <p>Drama, Action | 2020</p>
               </CardContent>
             </Card>
           </Link>
