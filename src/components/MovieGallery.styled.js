@@ -88,6 +88,21 @@ export const Card = styled.article`
 
 export const CardThumb = styled.div`
   position: relative;
+  & img {
+    height: 660px;
+  }
+
+  @media ${device.tablet} {
+    & img {
+      height: 346px;
+    }
+  }
+
+  @media ${device.desktop} {
+    & img {
+      height: 445px;
+    }
+  }
 `;
 
 export const CardContent = styled.div`

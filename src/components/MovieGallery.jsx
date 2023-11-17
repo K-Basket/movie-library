@@ -7,32 +7,45 @@ import {
   Item,
   Title,
 } from './MovieGallery.styled';
+import { useGetGenresListQuery } from 'redux/moviesSlice';
 
-const filmCover =
-  'https://res.cloudinary.com/daqnavarl/image/upload/v1700086246/Other/filmCover_leslnj.jpg';
+const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
-export const MovieGallery = ({ movieId, title }) => {
-  console.log('movieId :>> ', movieId);
+export const MovieGallery = ({ dataMovies, title, createGenres }) => {
   const location = useLocation();
+  const { data: genresList } = useGetGenresListQuery();
 
   return (
     <>
       <Title>{title}</Title>
       <CardSet>
-        <Item>
-          <Link to={`movies/id`} state={{ from: location }}>
-            <Card>
-              <CardThumb>
-                <img src={filmCover} alt={'textAlt'} />
-              </CardThumb>
+        {dataMovies &&
+          dataMovies.map(
+            ({ id, poster_path, title, release_date, genre_ids }) => {
+              const poster = `https://image.tmdb.org/t/p/w500${
+                poster_path ?? imgPlaceholder
+              }`;
+              const [yearRelease] = release_date.split('-');
+              const genre = createGenres(genresList, genre_ids);
 
-              <CardContent>
-                <h2>Greyhound</h2>
-                <p>Drama, Action | 2020</p>
-              </CardContent>
-            </Card>
-          </Link>
-        </Item>
+              return (
+                <Item key={id}>
+                  <Link to={`movies/id`} state={{ from: location }}>
+                    <Card>
+                      <CardThumb>
+                        <img src={poster} alt={title} />
+                      </CardThumb>
+
+                      <CardContent>
+                        <h2>{title}</h2>
+                        <p>{`${genre} | ${yearRelease}`}</p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </Item>
+              );
+            }
+          )}
       </CardSet>
     </>
   );

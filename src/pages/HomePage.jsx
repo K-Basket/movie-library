@@ -1,28 +1,29 @@
 import { MovieGallery } from 'components/MovieGallery';
-import { useGetTrendDayQuery, useGetTrendWeekQuery } from 'redux/moviesSlice';
+import { createGenresForTrendMovie } from 'helpers/helpers';
+import {
+  // useGetMovieByIdQuery,
+  useGetTrendDayQuery,
+  useGetTrendWeekQuery,
+} from 'redux/moviesSlice';
 
 const HomePage = () => {
-  const {
-    data: dataWeek,
-    error: errorWeek,
-    isLoading: isLoadingWeek,
-  } = useGetTrendWeekQuery();
-  console.log('dataWeek :>> ', dataWeek);
-  console.log('errorWeek :>> ', errorWeek);
-  console.log('isLoadingWeek :>> ', isLoadingWeek);
-
-  const {
-    data: dataDay,
-    errorWeek: errorDay,
-    isLoadingWeek: isLoadingDay,
-  } = useGetTrendDayQuery();
-  console.log('dataDay :>> ', dataDay);
-  console.log('errorDay :>> ', errorDay);
-  console.log('isLoadingDay :>> ', isLoadingDay);
+  const { data: dataTrendWeek } = useGetTrendWeekQuery('1');
+  const { data: dataTrendDay } = useGetTrendDayQuery('1');
+  // const { data: dataMovieById } = useGetMovieByIdQuery('872585');
+  // console.log('dataMovieById :>> ', dataMovieById);
 
   return (
     <>
-      <MovieGallery movieId={'12345'} title="Popular film of the week" />
+      <MovieGallery
+        dataMovies={dataTrendWeek && dataTrendWeek.results}
+        title="Popular film of the week"
+        createGenres={createGenresForTrendMovie}
+      />
+      <MovieGallery
+        dataMovies={dataTrendDay && dataTrendDay.results}
+        title="Popular film of the Day"
+        createGenres={createGenresForTrendMovie}
+      />
     </>
   );
 };
