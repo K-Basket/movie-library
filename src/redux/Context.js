@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useGetGenresListQuery } from './moviesSlice';
+import { createContext, useContext } from 'react';
 
 const MoviesContext = createContext();
 
