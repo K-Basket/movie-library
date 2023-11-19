@@ -1,5 +1,7 @@
 export const createGenresForTrendMovie = (genresList, genresMovie) => {
-  const result = genresList?.genres
+  if (!genresList) return;
+
+  const result = genresList.genres
     .filter(({ id }) => genresMovie.includes(id))
     .map(({ name }) => name);
 
