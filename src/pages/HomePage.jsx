@@ -1,6 +1,5 @@
 import { MovieGallery } from 'components/MovieGallery';
 import { createGenresForTrendMovie } from 'helpers/helpers';
-import { useState } from 'react';
 import { useMoviesContext } from 'redux/Context';
 import {
   // useGetMovieByIdQuery,
@@ -14,7 +13,6 @@ const HomePage = () => {
   // const { data: dataMovieById } = useGetMovieByIdQuery('872585');
   // console.log('dataMovieById :>> ', dataMovieById);
 
-  // const [renderPopularFilm, setRenderGall] = useState(true);
   const { isActiveBtn } = useMoviesContext();
 
   return (

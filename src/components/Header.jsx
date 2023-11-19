@@ -13,12 +13,10 @@ import {
   WrappLogoBtn,
 } from './Header.styled';
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
 import { useMoviesContext } from 'redux/Context';
 
 export const Header = () => {
   const { pathname } = useLocation();
-  // const [isActiveBtn, setIsActiveBtn] = useState(true);
   const { isActiveBtn, setIsActiveBtn } = useMoviesContext();
 
   const handleMovieSearch = evt => {
