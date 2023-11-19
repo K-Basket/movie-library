@@ -1,5 +1,7 @@
 import { MovieGallery } from 'components/MovieGallery';
 import { createGenresForTrendMovie } from 'helpers/helpers';
+import { useState } from 'react';
+import { useMoviesContext } from 'redux/Context';
 import {
   // useGetMovieByIdQuery,
   useGetTrendDayQuery,
@@ -12,18 +14,25 @@ const HomePage = () => {
   // const { data: dataMovieById } = useGetMovieByIdQuery('872585');
   // console.log('dataMovieById :>> ', dataMovieById);
 
+  // const [renderPopularFilm, setRenderGall] = useState(true);
+  const { isActiveBtn } = useMoviesContext();
+
   return (
     <>
-      <MovieGallery
-        dataMovies={dataTrendWeek && dataTrendWeek.results}
-        title="Popular film of the week"
-        createGenres={createGenresForTrendMovie}
-      />
-      <MovieGallery
-        dataMovies={dataTrendDay && dataTrendDay.results}
-        title="Popular film of the Day"
-        createGenres={createGenresForTrendMovie}
-      />
+      {isActiveBtn && (
+        <MovieGallery
+          title="Popular films of the Week"
+          dataMovies={dataTrendWeek && dataTrendWeek.results}
+          createGenres={createGenresForTrendMovie}
+        />
+      )}
+      {!isActiveBtn && (
+        <MovieGallery
+          title="Popular films of the Day"
+          dataMovies={dataTrendDay && dataTrendDay.results}
+          createGenres={createGenresForTrendMovie}
+        />
+      )}
     </>
   );
 };

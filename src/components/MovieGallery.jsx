@@ -15,9 +15,16 @@ export const MovieGallery = ({ dataMovies, title, createGenres }) => {
   const location = useLocation();
   const { data: genresList } = useGetGenresListQuery();
 
+  const titleArray = title.split(' ');
+  const titleStart = titleArray;
+  const titleEnd = titleStart.pop();
+
   return (
     <>
-      <Title>{title}</Title>
+      <Title>
+        {`${titleStart.join(' ')} `}
+        <span>{titleEnd}</span>
+      </Title>
       <CardSet>
         {dataMovies &&
           dataMovies.map(

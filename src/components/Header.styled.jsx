@@ -203,8 +203,8 @@ export const Button = styled.button`
   display: inline-block;
 
   font-weight: 500;
-  font-size: 12px;
-  line-height: calc(14 / 12);
+  font-size: 10px;
+  line-height: calc(12 / 10);
   text-transform: uppercase;
 
   color: ${({ $active }) => ($active ? `${whiteColor}` : `${'#B92F2C'}`)};
@@ -223,6 +223,9 @@ export const Button = styled.button`
   @media ${device.tablet} {
     padding-top: 12px;
     padding-bottom: 12px;
+
+    font-size: 11px;
+    line-height: calc(16 / 11);
   }
 `;
 
@@ -256,6 +259,9 @@ export const Input = styled.input`
     padding-top: 13px;
     padding-bottom: 13px;
     padding-right: 38px;
+
+    font-size: 14px;
+    line-height: calc(16 / 14);
   }
 `;
 

@@ -14,10 +14,12 @@ import {
 } from './Header.styled';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { useMoviesContext } from 'redux/Context';
 
 export const Header = () => {
   const { pathname } = useLocation();
-  const [isActive, setIsActive] = useState(true);
+  // const [isActiveBtn, setIsActiveBtn] = useState(true);
+  const { isActiveBtn, setIsActiveBtn } = useMoviesContext();
 
   const handleMovieSearch = evt => {
     evt.preventDefault();
@@ -26,7 +28,13 @@ export const Header = () => {
 
   const onMakeActiveBtn = evt => {
     const content = evt.target.textContent;
-    setIsActive(content === 'Watched' ? true : false);
+
+    setIsActiveBtn(() => {
+      if (content === 'Watched') return true;
+      if (content === 'Films of the week') return true;
+
+      return false;
+    });
   };
 
   return (
@@ -64,11 +72,22 @@ export const Header = () => {
       <WrappLogoBtn>
         {pathname === '/movies' && (
           <WrappBtn>
-            <Button $active={isActive} onClick={onMakeActiveBtn}>
+            <Button $active={isActiveBtn} onClick={onMakeActiveBtn}>
               Watched
             </Button>
-            <Button $active={!isActive} onClick={onMakeActiveBtn}>
+            <Button $active={!isActiveBtn} onClick={onMakeActiveBtn}>
               Queue
+            </Button>
+          </WrappBtn>
+        )}
+
+        {pathname === '/' && (
+          <WrappBtn>
+            <Button $active={isActiveBtn} onClick={onMakeActiveBtn}>
+              Films of the week
+            </Button>
+            <Button $active={!isActiveBtn} onClick={onMakeActiveBtn}>
+              Films of the day
             </Button>
           </WrappBtn>
         )}

@@ -22,6 +22,10 @@ export const Title = styled.h2`
   font-weight: 500;
   color: ${blackColor};
 
+  & span {
+    color: ${redColor};
+  }
+
   @media ${device.tablet} {
     margin-bottom: 12px;
     font-size: 21px;
