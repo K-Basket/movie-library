@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import {
+  ButtonLoadMore,
   Card,
   CardContent,
   CardSet,
@@ -8,16 +9,25 @@ import {
   Title,
 } from './MovieGallery.styled';
 import { useGetGenresListQuery } from 'redux/moviesSlice';
+import { useMoviesContext } from 'redux/Context';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
 export const MovieGallery = ({ dataMovies, title, createGenres }) => {
   const location = useLocation();
   const { data: genresList } = useGetGenresListQuery();
+  const { isActiveBtn, pageNum, setPageNum } = useMoviesContext();
 
   const titleArray = title.split(' ');
   const titleStart = titleArray;
   const titleEnd = titleStart.pop();
+
+  const addNewPage = () => {
+    if (isActiveBtn) return setPageNum(prev => prev + 1);
+    if (!isActiveBtn) return setPageNum(prev => prev + 1);
+  };
+
+  console.log('addPage :>> ', pageNum);
 
   return (
     <>
@@ -54,6 +64,10 @@ export const MovieGallery = ({ dataMovies, title, createGenres }) => {
             }
           )}
       </CardSet>
+
+      <ButtonLoadMore $active={true} onClick={addNewPage}>
+        load more
+      </ButtonLoadMore>
     </>
   );
 };

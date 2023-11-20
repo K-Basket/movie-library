@@ -8,12 +8,12 @@ import {
 } from 'redux/moviesSlice';
 
 const HomePage = () => {
-  const { data: dataTrendWeek } = useGetTrendWeekQuery('1');
-  const { data: dataTrendDay } = useGetTrendDayQuery('1');
+  // const [addPage, setAddPage] = useState(1);
+  const { isActiveBtn, pageNum } = useMoviesContext();
+  const { data: dataTrendWeek } = useGetTrendWeekQuery(pageNum);
+  const { data: dataTrendDay } = useGetTrendDayQuery(pageNum);
   // const { data: dataMovieById } = useGetMovieByIdQuery('872585');
   // console.log('dataMovieById :>> ', dataMovieById);
-
-  const { isActiveBtn } = useMoviesContext();
 
   return (
     <>

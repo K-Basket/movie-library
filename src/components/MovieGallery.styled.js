@@ -6,6 +6,7 @@ import {
   shadow,
   transition,
 } from 'utils/variables.styled';
+import { Button } from './Header.styled';
 
 const gapGridTopTablet = 23;
 const gapGridLeftTablet = 18;
@@ -143,4 +144,11 @@ export const CardContent = styled.div`
       line-height: calc(19 / 16);
     }
   }
+`;
+
+export const ButtonLoadMore = styled(Button)`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
 `;
