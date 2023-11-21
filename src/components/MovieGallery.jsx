@@ -29,18 +29,31 @@ export const MovieGallery = ({
 
   const refItem = useRef();
 
-  useEffect(() => {
-    if (page > 1) {
+  // useEffect(() => {
+  //   if (page > 1) {
+  //     const { height: itemHeight } = refItem.current.getBoundingClientRect();
+
+  //     window.scrollBy({
+  //       top: itemHeight * 1.2,
+  //       behavior: 'smooth',
+  //     });
+  //   }
+  // }, [dataMovies, page]);
+
+  // const addNewPage = () => setPage(prev => prev + 1);
+
+  const addNewPage = () => {
+    setPage(prev => prev + 1);
+
+    setTimeout(() => {
       const { height: itemHeight } = refItem.current.getBoundingClientRect();
 
       window.scrollBy({
         top: itemHeight * 1.2,
         behavior: 'smooth',
       });
-    }
-  }, [dataMovies, page]);
-
-  const addNewPage = () => setPage(prev => prev + 1);
+    }, 250);
+  };
 
   return (
     <>

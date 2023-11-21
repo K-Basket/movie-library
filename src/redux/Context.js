@@ -25,9 +25,6 @@ export const Context = ({ children }) => {
       setMoviesTrendDay(prev => [...prev, ...dataTrendDay.results]);
   }, [dataTrendDay]);
 
-  console.log('pageWeek :>> ', pageWeek);
-  console.log('pageDay :>> ', pageDay);
-
   return (
     <MoviesContext.Provider
       value={{
