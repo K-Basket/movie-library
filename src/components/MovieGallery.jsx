@@ -9,7 +9,7 @@ import {
   Title,
 } from './MovieGallery.styled';
 import { useGetGenresListQuery } from 'redux/moviesSlice';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
@@ -28,19 +28,6 @@ export const MovieGallery = ({
   const titleEnd = titleStart.pop();
 
   const refItem = useRef();
-
-  // useEffect(() => {
-  //   if (page > 1) {
-  //     const { height: itemHeight } = refItem.current.getBoundingClientRect();
-
-  //     window.scrollBy({
-  //       top: itemHeight * 1.2,
-  //       behavior: 'smooth',
-  //     });
-  //   }
-  // }, [dataMovies, page]);
-
-  // const addNewPage = () => setPage(prev => prev + 1);
 
   const addNewPage = () => {
     setPage(prev => prev + 1);
