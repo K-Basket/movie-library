@@ -9,17 +9,12 @@ import {
   Title,
 } from './MovieGallery.styled';
 import { useGetGenresListQuery } from 'redux/moviesSlice';
+
 import { useRef } from 'react';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
-export const MovieGallery = ({
-  dataMovies,
-  page,
-  setPage,
-  title,
-  createGenres,
-}) => {
+export const MovieGallery = ({ dataMovies, setPage, title, createGenres }) => {
   const location = useLocation();
   const { data: genresList } = useGetGenresListQuery();
 
