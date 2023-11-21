@@ -17,7 +17,7 @@ import { useMoviesContext } from 'redux/Context';
 
 export const Header = () => {
   const { pathname } = useLocation();
-  const { isActiveBtn, setIsActiveBtn, setPageNum } = useMoviesContext();
+  const { isActiveBtn, setIsActiveBtn } = useMoviesContext();
 
   const handleMovieSearch = evt => {
     evt.preventDefault();
@@ -33,7 +33,6 @@ export const Header = () => {
 
       return false;
     });
-    setPageNum(1);
   };
 
   return (

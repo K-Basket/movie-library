@@ -9,25 +9,38 @@ import {
   Title,
 } from './MovieGallery.styled';
 import { useGetGenresListQuery } from 'redux/moviesSlice';
-import { useMoviesContext } from 'redux/Context';
+import { useEffect, useRef } from 'react';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
-export const MovieGallery = ({ dataMovies, title, createGenres }) => {
+export const MovieGallery = ({
+  dataMovies,
+  page,
+  setPage,
+  title,
+  createGenres,
+}) => {
   const location = useLocation();
   const { data: genresList } = useGetGenresListQuery();
-  const { isActiveBtn, pageNum, setPageNum } = useMoviesContext();
 
   const titleArray = title.split(' ');
   const titleStart = titleArray;
   const titleEnd = titleStart.pop();
 
-  const addNewPage = () => {
-    if (isActiveBtn) return setPageNum(prev => prev + 1);
-    if (!isActiveBtn) return setPageNum(prev => prev + 1);
-  };
+  const refItem = useRef();
 
-  console.log('addPage :>> ', pageNum);
+  useEffect(() => {
+    if (page > 1) {
+      const { height: itemHeight } = refItem.current.getBoundingClientRect();
+
+      window.scrollBy({
+        top: itemHeight * 1.2,
+        behavior: 'smooth',
+      });
+    }
+  }, [dataMovies, page]);
+
+  const addNewPage = () => setPage(prev => prev + 1);
 
   return (
     <>
@@ -46,7 +59,7 @@ export const MovieGallery = ({ dataMovies, title, createGenres }) => {
               const genre = createGenres(genresList, genre_ids);
 
               return (
-                <Item key={id}>
+                <Item key={id} ref={refItem}>
                   <Link to={`movies/id`} state={{ from: location }}>
                     <Card>
                       <CardThumb>
