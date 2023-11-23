@@ -14,7 +14,13 @@ import { useRef } from 'react';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
-export const MovieGallery = ({ dataMovies, setPage, title, createGenres }) => {
+export const MovieGallery = ({
+  dataMovies,
+  setPage,
+  title,
+  createGenres,
+  route,
+}) => {
   const location = useLocation();
   const { data: genresList } = useGetGenresListQuery();
 
@@ -55,7 +61,7 @@ export const MovieGallery = ({ dataMovies, setPage, title, createGenres }) => {
 
               return (
                 <Item key={id} ref={refItem}>
-                  <Link to={`movies/id`} state={{ from: location }}>
+                  <Link to={`${route}${id}`} state={{ from: location }}>
                     <Card>
                       <CardThumb>
                         <img src={poster} alt={title} />

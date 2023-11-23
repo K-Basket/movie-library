@@ -35,6 +35,7 @@ const HomePage = () => {
           dataMovies={moviesTrendWeek}
           setPage={setPageWeek}
           createGenres={createGenresForTrendMovie}
+          route="movies/"
         />
       )}
       {!isActiveBtn && (
@@ -43,6 +44,7 @@ const HomePage = () => {
           dataMovies={moviesTrendDay}
           setPage={setPageDay}
           createGenres={createGenresForTrendMovie}
+          route="movies/"
         />
       )}
 
