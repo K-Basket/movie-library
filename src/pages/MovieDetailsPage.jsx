@@ -5,13 +5,15 @@ const MovieDetailsPage = () => {
   const location = useLocation();
   const { id: movieId } = useParams();
 
-  const { data } = useGetMovieByIdQuery(movieId);
+  const { data, isLoading, error } = useGetMovieByIdQuery(movieId);
+
+  if (isLoading && !error) {
+    return <h1>...loading...</h1>;
+  }
 
   if (!data) return;
 
   const { id, original_title, title, poster_path } = data;
-  // console.log('data :>> ', data);
-  console.log('id movie :>> ', id);
 
   return (
     <>
@@ -23,6 +25,7 @@ const MovieDetailsPage = () => {
       >
         Go back
       </Link>
+      {/* <button onClick={() => window.history.back()}>Go Back</button> */}
 
       <h1>{original_title}</h1>
       <p>Id backend: {id}</p>

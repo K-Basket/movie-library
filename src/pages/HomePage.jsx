@@ -18,12 +18,10 @@ const HomePage = () => {
   useEffect(() => {
     const updatePosition = () => {
       const { top } = refGallery.current.getBoundingClientRect();
-
       setTopPosition(top);
     };
 
     window.addEventListener('scroll', updatePosition);
-
     return () => window.removeEventListener('scroll', updatePosition);
   }, []);
 
