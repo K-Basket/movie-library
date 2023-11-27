@@ -23,6 +23,10 @@ export const moviesSlice = createApi({
       query: id => `/movie/${id}?${API_KEY}&language=en-US`,
       providesTags: ['movie'],
     }),
+    getUserReviewsMovie: builder.query({
+      query: id => `/movie/${id}/reviews?${API_KEY}&language=en-US`,
+      providesTags: ['movie'],
+    }),
     getGenresList: builder.query({
       query: () => `/genre/movie/list?${API_KEY}&language=en`,
       providesTags: ['movie'],
@@ -34,5 +38,6 @@ export const {
   useGetTrendWeekQuery,
   useGetTrendDayQuery,
   useGetMovieByIdQuery,
+  useGetUserReviewsMovieQuery,
   useGetGenresListQuery,
 } = moviesSlice;
