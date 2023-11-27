@@ -48,7 +48,7 @@ const MovieDetailsPage = () => {
     vote_average,
     vote_count,
   } = dataMovie;
-  const { page, results: rewiews } = dataReviews;
+  const { results: rewiews } = dataReviews;
   const { history } = window;
 
   return (
