@@ -207,7 +207,7 @@ export const Button = styled.button`
   line-height: calc(12 / 10);
   text-transform: uppercase;
 
-  color: ${({ $active }) => ($active ? `${whiteColor}` : `${'#B92F2C'}`)};
+  color: ${({ $active }) => ($active ? `${whiteColor}` : `${redColor}`)};
   background-color: ${({ $active }) =>
     $active ? `${redColor}` : `${whiteColor}`};
 

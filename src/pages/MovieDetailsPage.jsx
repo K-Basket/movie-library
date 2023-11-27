@@ -1,5 +1,6 @@
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useGetMovieByIdQuery } from 'redux/moviesSlice';
+import { BtnGoToBack } from './MovieDetailsPage.styled';
 
 const MovieDetailsPage = () => {
   const location = useLocation();
@@ -14,18 +15,19 @@ const MovieDetailsPage = () => {
   if (!data) return;
 
   const { id, original_title, title, poster_path } = data;
+  const { history } = window;
 
   return (
     <>
       <p>Movie Details pages</p>
 
-      <Link
-        to={location.state?.from ?? '/home'}
-        style={{ fontSize: '30px', color: 'blue' }}
-      >
-        Go back
-      </Link>
-      {/* <button onClick={() => window.history.back()}>Go Back</button> */}
+      {history.state.idx === 0 ? (
+        <BtnGoToBack to={location.state?.from ?? '/home'}>
+          Go to back
+        </BtnGoToBack>
+      ) : (
+        <BtnGoToBack onClick={() => history.back()}>Go to back</BtnGoToBack>
+      )}
 
       <h1>{original_title}</h1>
       <p>Id backend: {id}</p>
