@@ -8,9 +8,8 @@ const MovieDetailsPage = () => {
 
   const { data, isLoading, error } = useGetMovieByIdQuery(movieId);
 
-  if (isLoading && !error) {
-    return <h1>...loading...</h1>;
-  }
+  if (isLoading && !error)
+    return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
 
   if (!data) return;
 

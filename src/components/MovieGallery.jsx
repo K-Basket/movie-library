@@ -16,6 +16,8 @@ const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
 export const MovieGallery = ({
   dataMovies,
+  isLoading,
+  error,
   setPage,
   title,
   createGenres,
@@ -42,6 +44,9 @@ export const MovieGallery = ({
       });
     }, 250);
   };
+
+  if (isLoading && !error)
+    return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
 
   return (
     <>

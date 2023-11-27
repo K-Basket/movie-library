@@ -9,8 +9,16 @@ export const Context = ({ children }) => {
   const [pageWeek, setPageWeek] = useState(1);
   const [pageDay, setPageDay] = useState(1);
 
-  const { data: dataTrendWeek } = useGetTrendWeekQuery(pageWeek);
-  const { data: dataTrendDay } = useGetTrendDayQuery(pageDay);
+  const {
+    data: dataTrendWeek,
+    isLoading: isLoadingTrendWeek,
+    error: errorTrendWeek,
+  } = useGetTrendWeekQuery(pageWeek);
+  const {
+    data: dataTrendDay,
+    isLoading: isLoadingTrendDay,
+    error: errorTrendDay,
+  } = useGetTrendDayQuery(pageDay);
 
   const [moviesTrendWeek, setMoviesTrendWeek] = useState([]);
   const [moviesTrendDay, setMoviesTrendDay] = useState([]);
@@ -30,13 +38,21 @@ export const Context = ({ children }) => {
       value={{
         isActiveBtn,
         setIsActiveBtn,
+
         pageWeek,
         setPageWeek,
+
         pageDay,
         setPageDay,
+
         moviesTrendWeek,
-        setMoviesTrendWeek,
+        isLoadingTrendWeek,
+        errorTrendWeek,
+
+        // setMoviesTrendWeek,
         moviesTrendDay,
+        isLoadingTrendDay,
+        errorTrendDay,
       }}
     >
       {children}

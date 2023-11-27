@@ -16,7 +16,7 @@ export const Layout = () => {
       </header>
 
       <main>
-        <Suspense fallback={<h1>Loading...</h1>}>
+        <Suspense fallback={<h1>Loading... Layout</h1>}>
           <Container>
             <Outlet />
           </Container>

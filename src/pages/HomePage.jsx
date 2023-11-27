@@ -10,7 +10,11 @@ const HomePage = () => {
     moviesTrendWeek,
     moviesTrendDay,
     setPageWeek,
+    isLoadingTrendWeek,
+    errorTrendWeek,
     setPageDay,
+    isLoadingTrendDay,
+    errorTrendDay,
   } = useMoviesContext();
   const refGallery = useRef();
   const [topPosition, setTopPosition] = useState();
@@ -31,6 +35,8 @@ const HomePage = () => {
         <MovieGallery
           title="Popular films of the Week"
           dataMovies={moviesTrendWeek}
+          isLoading={isLoadingTrendWeek}
+          error={errorTrendWeek}
           setPage={setPageWeek}
           createGenres={createGenresForTrendMovie}
           route="movies/"
@@ -40,6 +46,8 @@ const HomePage = () => {
         <MovieGallery
           title="Popular films of the Day"
           dataMovies={moviesTrendDay}
+          isLoading={isLoadingTrendDay}
+          error={errorTrendDay}
           setPage={setPageDay}
           createGenres={createGenresForTrendMovie}
           route="movies/"
