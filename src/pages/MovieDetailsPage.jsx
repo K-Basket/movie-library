@@ -1,8 +1,5 @@
-import { Link, useLocation, useParams } from 'react-router-dom';
-import {
-  useGetMovieByIdQuery,
-  useGetUserReviewsMovieQuery,
-} from 'redux/moviesSlice';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { useGetMovieByIdQuery } from 'redux/moviesSlice';
 import { BtnGoToBack } from './MovieDetailsPage.styled';
 import { addCommaDelimiter } from 'helpers/helpers';
 
@@ -15,19 +12,11 @@ const MovieDetailsPage = () => {
     isLoading: isLoadingMovie,
     error: errorMovie,
   } = useGetMovieByIdQuery(movieId);
-  const {
-    data: dataReviews,
-    isLoading: isLoadingReviews,
-    error: errorReviews,
-  } = useGetUserReviewsMovieQuery(movieId);
 
-  console.log('data by ID  :>> ', dataMovie);
-  console.log('data Reviews :>> ', dataReviews);
-
-  if (isLoadingMovie && !errorMovie && isLoadingReviews && !errorReviews)
+  if (isLoadingMovie && !errorMovie)
     return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
 
-  if (!dataMovie || !dataReviews) return;
+  if (!dataMovie) return;
 
   const {
     id,
@@ -48,19 +37,24 @@ const MovieDetailsPage = () => {
     vote_average,
     vote_count,
   } = dataMovie;
-  const { results: rewiews } = dataReviews;
-  const { history } = window;
+
+  // const { history } = window;
 
   return (
     <>
       <p>Movie Details pages</p>
-      {history.state.idx === 0 ? (
+      <BtnGoToBack to={location.state?.from ?? '/movies'}>
+        Go to back
+      </BtnGoToBack>
+
+      {/* {history.state.idx === 0 ? (
         <BtnGoToBack to={location.state?.from ?? '/home'}>
           Go to back
         </BtnGoToBack>
       ) : (
         <BtnGoToBack onClick={() => history.back()}>Go to back</BtnGoToBack>
-      )}
+      )} */}
+
       <h1>original_title: {original_title}</h1>
       <p>backdrop_path:</p>
       <img
@@ -77,7 +71,12 @@ const MovieDetailsPage = () => {
         ))}
       </ul>
 
-      <Link to={homepage} target="_blank" rel="noopener nofollow noreferrer">
+      <Link
+        to={homepage}
+        target="_blank"
+        rel="noopener nofollow noreferrer"
+        style={{ color: 'blue' }}
+      >
         Link Homepage {title}
       </Link>
 
@@ -130,20 +129,20 @@ const MovieDetailsPage = () => {
       <p>vote_average: {vote_average}</p>
       <p>vote_count: {vote_count}</p>
 
-      <ul>
-        <h2> User reviews for a movie:</h2>
-        {rewiews.map(({ id, author, content, created_at }) => (
-          <li key={id}>
-            {
-              <>
-                <h3>author rewiews: {author}</h3>
-                <p>{content}</p>
-                <p> {created_at}</p>
-              </>
-            }
-          </li>
-        ))}
+      <ul style={{ color: 'blue' }}>
+        <li>
+          <Link to="reviews">
+            <h2>User reviews for a movie:</h2>
+          </Link>
+        </li>
+        <li>
+          <Link to="cast">
+            <h2>Read about Cast</h2>
+          </Link>
+        </li>
       </ul>
+
+      <Outlet />
     </>
   );
 };
