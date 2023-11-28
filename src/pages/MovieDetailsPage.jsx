@@ -1,7 +1,9 @@
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useGetMovieByIdQuery } from 'redux/moviesSlice';
 import { BtnGoToBack } from './MovieDetailsPage.styled';
 import { addCommaDelimiter } from 'helpers/helpers';
+import { Cast } from 'components/Cast';
+import { Reviews } from 'components/Reviews';
 
 const MovieDetailsPage = () => {
   const location = useLocation();
@@ -38,21 +40,19 @@ const MovieDetailsPage = () => {
     vote_count,
   } = dataMovie;
 
-  // const { history } = window;
-
   return (
     <>
       <p>Movie Details pages</p>
-      <BtnGoToBack to={location.state?.from ?? '/movies'}>
-        Go to back
-      </BtnGoToBack>
+      <BtnGoToBack to={location.state?.from ?? '/'}>Go to back</BtnGoToBack>
 
-      {/* {history.state.idx === 0 ? (
+      {/* {window.history.state.idx === 0 ? (
         <BtnGoToBack to={location.state?.from ?? '/home'}>
           Go to back
         </BtnGoToBack>
       ) : (
-        <BtnGoToBack onClick={() => history.back()}>Go to back</BtnGoToBack>
+        <BtnGoToBack onClick={() => window.history.back()}>
+          Go to back
+        </BtnGoToBack>
       )} */}
 
       <h1>original_title: {original_title}</h1>
@@ -129,20 +129,15 @@ const MovieDetailsPage = () => {
       <p>vote_average: {vote_average}</p>
       <p>vote_count: {vote_count}</p>
 
-      <ul style={{ color: 'blue' }}>
-        <li>
-          <Link to="reviews">
-            <h2>User reviews for a movie:</h2>
-          </Link>
-        </li>
-        <li>
-          <Link to="cast">
-            <h2>Read about Cast</h2>
-          </Link>
-        </li>
-      </ul>
+      <h2 style={{ color: 'green', paddingTop: '25px', fontSize: '20px' }}>
+        User reviews for a movie:
+      </h2>
+      <Cast />
 
-      <Outlet />
+      <h2 style={{ color: 'green', paddingTop: '25px', fontSize: '20px' }}>
+        Read about Cast
+      </h2>
+      <Reviews />
     </>
   );
 };

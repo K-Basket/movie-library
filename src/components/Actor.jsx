@@ -25,7 +25,7 @@ export const Actor = () => {
 
   return (
     <>
-      <BtnGoToBack to={location.state?.from ?? '/home'}>Go to back</BtnGoToBack>
+      <BtnGoToBack to={location.state?.from ?? '/'}>Go to back</BtnGoToBack>
       <h2>{name}</h2>
       <p>Popularity: {popularity}</p>
       <p>Homepage: {homepage ? homepage : 'homepage is missing'}</p>

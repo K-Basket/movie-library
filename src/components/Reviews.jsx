@@ -13,11 +13,7 @@ export const Reviews = () => {
   const { results: rewiews } = data;
 
   return (
-    <ul
-      style={{
-        outline: '2px solid green',
-      }}
-    >
+    <ul style={{ margin: '10px 0' }}>
       {rewiews.map(({ id, author, content, created_at }) => (
         <li key={id}>
           {

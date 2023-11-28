@@ -16,7 +16,6 @@ export const Cast = () => {
   return (
     <ul
       style={{
-        outline: '2px solid green',
         margin: '10px 0',
         display: 'flex',
         flexDirection: 'row',

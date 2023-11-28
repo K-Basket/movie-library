@@ -67,6 +67,7 @@ export const MovieGallery = ({
               return (
                 <Item key={id} ref={refItem}>
                   <Link to={`${route}${id}`} state={{ from: location }}>
+                    {/* <Link to={`${route}${id}`}> */}
                     <Card>
                       <CardThumb>
                         <img src={poster} alt={title} />
