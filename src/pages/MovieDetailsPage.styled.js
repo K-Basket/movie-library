@@ -18,3 +18,47 @@ export const BtnGoToBack = styled(Link)`
   border-radius: 100px;
   box-shadow: ${shadow};
 `;
+
+export const AboutFilm = styled.ul`
+  & * {
+    outline: 1px solid blueviolet; //
+  }
+
+  display: flex;
+`;
+
+export const ImageMovie = styled.li`
+  min-width: 400px;
+  min-height: 600px;
+
+  & img {
+    width: 400px;
+    height: 600px;
+  }
+`;
+
+export const DescriptionMovie = styled.li`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+  flex-grow: 1;
+
+  & ul {
+    display: flex;
+    align-items: center;
+
+    & > :nth-child(1) {
+      min-width: 30%;
+      font-size: 18px;
+
+      color: green;
+    }
+
+    & > :nth-child(2) {
+      flex-grow: 1;
+      font-size: 16px;
+      color: brown;
+    }
+  }
+`;
