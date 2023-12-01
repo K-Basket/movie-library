@@ -1,12 +1,32 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { redColor, shadow, whiteColor } from 'utils/variables.styled';
+import {
+  blackColor,
+  grayColor,
+  redColor,
+  shadow,
+  whiteColor,
+} from 'utils/variables.styled';
 
 export const Section = styled.section`
   /* outline: 1px solid green;
   background-color: #fefdf4; */
 
   padding: 25px 0;
+`;
+
+export const TitleWrapp = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Title = styled.h1`
+  font-size: 33px;
+  font-weight: 500;
+  line-height: normal;
+
+  color: ${blackColor};
 `;
 
 export const BtnGoToBack = styled(Link)`
@@ -31,6 +51,8 @@ export const AboutFilm = styled.ul`
     outline: 1px solid blueviolet; //
   } */
 
+  /* outline: 1px solid blueviolet; // */
+
   display: flex;
 `;
 
@@ -41,6 +63,7 @@ export const ImageMovie = styled.li`
   & img {
     width: 400px;
     height: 600px;
+    border-radius: 15px;
   }
 `;
 
@@ -48,7 +71,7 @@ export const DescriptionMovie = styled.li`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 15px;
+  padding: 20px 15px 20px 35px;
   flex-grow: 1;
 `;
 
@@ -59,13 +82,22 @@ export const Item = styled.ul`
 
 export const Name = styled.li`
   min-width: 30%;
-  font-size: 18px;
+
+  font-size: 20px;
+  font-weight: 500;
+  line-height: calc(24px / 20px);
+
+  color: ${grayColor};
 `;
 
 export const Descript = styled.li`
   flex-grow: 1;
-  font-size: 16px;
-  color: brown;
+
+  font-size: 20px;
+  font-weight: 500;
+  line-height: calc(24px / 20px);
+
+  color: ${blackColor};
 `;
 
 export const ProductCompanies = styled.ul`
