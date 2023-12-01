@@ -1,5 +1,5 @@
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { useGetMovieByIdQuery } from 'redux/moviesSlice';
+import { useGetCastMovieQuery, useGetMovieByIdQuery } from 'redux/moviesSlice';
 import {
   AboutFilm,
   BtnGoToBack,
@@ -25,13 +25,14 @@ const MovieDetailsPage = () => {
     isLoading: isLoadingMovie,
     error: errorMovie,
   } = useGetMovieByIdQuery(movieId);
+  const { data: dataCasts } = useGetCastMovieQuery(movieId);
 
   // const { data: dataImages } = useGetImagesMovieQuery(movieId);
 
   if (isLoadingMovie && !errorMovie)
     return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
 
-  if (!dataMovie) return;
+  if (!dataMovie || !dataCasts) return;
 
   const {
     original_title,
@@ -49,10 +50,20 @@ const MovieDetailsPage = () => {
     vote_average,
     vote_count,
   } = dataMovie;
+  const { cast } = dataCasts;
 
   const year = release_date.split('-');
   const genresMovie = genres.map(({ name }) => name);
   const country = production_countries.map(({ name }) => name);
+
+  const getCastList = (data, num) => {
+    const res = [];
+
+    for (let i = 0; i < num; i += 1) {
+      res.push(data[i]);
+    }
+    return res.map(({ name }) => name).join(', ');
+  };
 
   return (
     <>
@@ -81,13 +92,13 @@ const MovieDetailsPage = () => {
 
           <DescriptionMovie>
             <Item>
-              <Name>TagNameine:</Name>
-              <Descript>{tagline}</Descript>
+              <Name>Year:</Name>
+              <Descript>{year[0]}</Descript>
             </Item>
 
             <Item>
-              <Name>Year:</Name>
-              <Descript>{year[0]}</Descript>
+              <Name>Original title:</Name>
+              <Descript>{original_title}</Descript>
             </Item>
 
             <Item>
@@ -98,6 +109,11 @@ const MovieDetailsPage = () => {
             <Item>
               <Name>Country:</Name>
               <Descript>{country.join(', ')}</Descript>
+            </Item>
+
+            <Item>
+              <Name>Cast:</Name>
+              <Descript>{getCastList(cast, '10')}</Descript>
             </Item>
 
             <Item>
@@ -118,11 +134,6 @@ const MovieDetailsPage = () => {
             <Item>
               <Name>About:</Name>
               <Descript>{overview}</Descript>
-            </Item>
-
-            <Item>
-              <Name>Original title:</Name>
-              <Descript>{original_title}</Descript>
             </Item>
 
             <Item>
