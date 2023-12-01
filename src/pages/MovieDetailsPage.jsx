@@ -11,6 +11,8 @@ import {
   Name,
   ProductCompanies,
   Section,
+  Title,
+  TitleWrapp,
 } from './MovieDetailsPage.styled';
 import { addCommaDelimiter } from 'helpers/helpers';
 import { Cast } from 'components/Cast';
@@ -60,28 +62,21 @@ const MovieDetailsPage = () => {
     const res = [];
 
     for (let i = 0; i < num; i += 1) {
-      res.push(data[i]);
+      if (data[i]) res.push(data[i]); // перевірка, якщо актерів меньше чим num
     }
+
     return res.map(({ name }) => name).join(', ');
   };
 
   return (
     <>
-      <p style={{ textAlign: 'end' }}>Movie Details pages</p>
+      <TitleWrapp>
+        <Title>Movie {title}</Title>
+        <BtnGoToBack to={location.state?.from ?? '/'}>Go to back</BtnGoToBack>
+      </TitleWrapp>
 
       <Section>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '20px',
-          }}
-        >
-          <h2>Movie {title}</h2>
-          <BtnGoToBack to={location.state?.from ?? '/'}>Go to back</BtnGoToBack>
-        </div>
-
+        <h2>Film description</h2>
         <AboutFilm>
           <ImageMovie>
             <img
@@ -91,6 +86,8 @@ const MovieDetailsPage = () => {
           </ImageMovie>
 
           <DescriptionMovie>
+            <p style={{ fontSize: '25px' }}>{tagline}</p>
+
             <Item>
               <Name>Year:</Name>
               <Descript>{year[0]}</Descript>
@@ -113,7 +110,7 @@ const MovieDetailsPage = () => {
 
             <Item>
               <Name>Cast:</Name>
-              <Descript>{getCastList(cast, '10')}</Descript>
+              <Descript>{getCastList(cast, '10')}...</Descript>
             </Item>
 
             <Item>
@@ -144,30 +141,14 @@ const MovieDetailsPage = () => {
                     to={homepage}
                     target="_blank"
                     rel="noopener nofollow noreferrer"
-                    style={{ color: 'blue' }}
                   >
-                    Link Homepage {title}
+                    Go to the {title} movie page
                   </Link>
                 }
               </Descript>
             </Item>
 
-            <p style={{ fontSize: '25px' }}>{tagline}</p>
-
-            {/* <ProductCompanies>
-            {production_companies.map(
-              ({ id, logo_path }) =>
-                logo_path && (
-                  <Company key={id}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500${logo_path}`}
-                      alt={logo_path}
-                      width="150"
-                    />
-                  </Company>
-                )
-            )}
-          </ProductCompanies> */}
+            {/* <p style={{ fontSize: '25px' }}>{tagline}</p> */}
           </DescriptionMovie>
         </AboutFilm>
       </Section>
