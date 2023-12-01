@@ -3,8 +3,14 @@ import { useGetMovieByIdQuery } from 'redux/moviesSlice';
 import {
   AboutFilm,
   BtnGoToBack,
+  Company,
+  Descript,
   DescriptionMovie,
   ImageMovie,
+  Item,
+  Name,
+  ProductCompanies,
+  Section,
 } from './MovieDetailsPage.styled';
 import { addCommaDelimiter } from 'helpers/helpers';
 import { Cast } from 'components/Cast';
@@ -49,111 +55,143 @@ const MovieDetailsPage = () => {
   const country = production_countries.map(({ name }) => name);
 
   return (
-    <section>
+    <>
       <p style={{ textAlign: 'end' }}>Movie Details pages</p>
 
-      <h2>Movie {title}</h2>
-      <AboutFilm>
-        <ImageMovie>
-          <img
-            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-            alt={title}
-          />
-        </ImageMovie>
+      <Section>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '20px',
+          }}
+        >
+          <h2>Movie {title}</h2>
+          <BtnGoToBack to={location.state?.from ?? '/'}>Go to back</BtnGoToBack>
+        </div>
 
-        <DescriptionMovie>
-          <ul>
-            <li>Tagline:</li>
-            <li>{tagline}</li>
-          </ul>
+        <AboutFilm>
+          <ImageMovie>
+            <img
+              src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+              alt={title}
+            />
+          </ImageMovie>
 
-          <ul>
-            <li>Year:</li>
-            <li>{year[0]}</li>
-          </ul>
+          <DescriptionMovie>
+            <Item>
+              <Name>TagNameine:</Name>
+              <Descript>{tagline}</Descript>
+            </Item>
 
-          <ul>
-            <li>Genres:</li>
-            <li>{genresMovie.join(', ')}</li>
-          </ul>
+            <Item>
+              <Name>Year:</Name>
+              <Descript>{year[0]}</Descript>
+            </Item>
 
-          <ul>
-            <li>Country:</li>
-            <li>{country.join(', ')}</li>
-          </ul>
+            <Item>
+              <Name>Genres:</Name>
+              <Descript>{genresMovie.join(', ')}</Descript>
+            </Item>
 
-          <ul>
-            <li>Budget:</li>
-            <li>{addCommaDelimiter(`${budget}`)}$</li>
-          </ul>
+            <Item>
+              <Name>Country:</Name>
+              <Descript>{country.join(', ')}</Descript>
+            </Item>
 
-          <ul>
-            <li>Vote / Votes:</li>
-            <li>{`${vote_average} / ${vote_count}`}</li>
-          </ul>
+            <Item>
+              <Name>Budget:</Name>
+              <Descript>{addCommaDelimiter(`${budget}`)}$</Descript>
+            </Item>
 
-          <ul>
-            <li>Popularity:</li>
-            <li>{popularity}</li>
-          </ul>
+            <Item>
+              <Name>Vote / Votes:</Name>
+              <Descript>{`${vote_average} / ${vote_count}`}</Descript>
+            </Item>
 
-          <ul>
-            <li>About:</li>
-            <li>{overview}</li>
-          </ul>
+            <Item>
+              <Name>Popularity:</Name>
+              <Descript>{popularity}</Descript>
+            </Item>
 
-          <ul>
-            <li>Original title:</li>
-            <li>{original_title}</li>
-          </ul>
+            <Item>
+              <Name>About:</Name>
+              <Descript>{overview}</Descript>
+            </Item>
 
-          <ul>
-            <li>Home page:</li>
-            <li>
-              {
-                <Link
-                  to={homepage}
-                  target="_blank"
-                  rel="noopener nofollow noreferrer"
-                  style={{ color: 'blue' }}
-                >
-                  Link Homepage {title}
-                </Link>
-              }
-            </li>
-          </ul>
+            <Item>
+              <Name>Original title:</Name>
+              <Descript>{original_title}</Descript>
+            </Item>
 
-          <p style={{ fontSize: '25px' }}>{tagline}</p>
+            <Item>
+              <Name>Home page:</Name>
+              <Descript>
+                {
+                  <Link
+                    to={homepage}
+                    target="_blank"
+                    rel="noopener nofollow noreferrer"
+                    style={{ color: 'blue' }}
+                  >
+                    Link Homepage {title}
+                  </Link>
+                }
+              </Descript>
+            </Item>
 
-          <ul>
+            <p style={{ fontSize: '25px' }}>{tagline}</p>
+
+            {/* <ProductCompanies>
             {production_companies.map(
               ({ id, logo_path }) =>
                 logo_path && (
-                  <li key={id}>
+                  <Company key={id}>
                     <img
                       src={`https://image.tmdb.org/t/p/w500${logo_path}`}
                       alt={logo_path}
-                      width="100"
+                      width="150"
                     />
-                  </li>
+                  </Company>
                 )
             )}
-          </ul>
-        </DescriptionMovie>
-      </AboutFilm>
+          </ProductCompanies> */}
+          </DescriptionMovie>
+        </AboutFilm>
+      </Section>
 
-      <BtnGoToBack to={location.state?.from ?? '/'}>Go to back</BtnGoToBack>
+      <Section>
+        <h2>Product Companies</h2>
 
-      <h2 style={{ color: 'green', paddingTop: '25px', fontSize: '20px' }}>
-        Read about Cast
-      </h2>
-      <Cast />
+        <ProductCompanies>
+          {production_companies.map(
+            ({ id, logo_path }) =>
+              logo_path && (
+                <Company key={id}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${logo_path}`}
+                    alt={logo_path}
+                    width="150"
+                  />
+                </Company>
+              )
+          )}
+        </ProductCompanies>
+      </Section>
 
-      <h2 style={{ color: 'green', paddingTop: '25px', fontSize: '20px' }}>
-        User reviews for a movie:
-      </h2>
-      <Reviews />
-    </section>
+      <Section>
+        <h2>Cast</h2>
+
+        <Cast />
+      </Section>
+
+      <Section>
+        <h2>Reviews for a movie:</h2>
+
+        <Reviews />
+      </Section>
+    </>
   );
 };
 

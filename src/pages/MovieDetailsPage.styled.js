@@ -2,6 +2,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { redColor, shadow, whiteColor } from 'utils/variables.styled';
 
+export const Section = styled.section`
+  outline: 1px solid green; //
+  background-color: #fefdf4;
+
+  padding: 25px 0;
+`;
+
 export const BtnGoToBack = styled(Link)`
   padding: 10px 26px;
   display: inline-block;
@@ -43,22 +50,29 @@ export const DescriptionMovie = styled.li`
   gap: 15px;
   padding: 15px;
   flex-grow: 1;
-
-  & ul {
-    display: flex;
-    align-items: center;
-
-    & > :nth-child(1) {
-      min-width: 30%;
-      font-size: 18px;
-
-      color: green;
-    }
-
-    & > :nth-child(2) {
-      flex-grow: 1;
-      font-size: 16px;
-      color: brown;
-    }
-  }
 `;
+
+export const Item = styled.ul`
+  display: flex;
+  align-items: center;
+`;
+
+export const Name = styled.li`
+  min-width: 30%;
+  font-size: 18px;
+`;
+
+export const Descript = styled.li`
+  flex-grow: 1;
+  font-size: 16px;
+  color: brown;
+`;
+
+export const ProductCompanies = styled.ul`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+`;
+
+export const Company = styled.li``;
