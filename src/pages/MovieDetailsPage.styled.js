@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { redColor, shadow, whiteColor } from 'utils/variables.styled';
 
 export const Section = styled.section`
-  outline: 1px solid green; //
-  background-color: #fefdf4;
+  /* outline: 1px solid green;
+  background-color: #fefdf4; */
 
   padding: 25px 0;
 `;
@@ -27,9 +27,9 @@ export const BtnGoToBack = styled(Link)`
 `;
 
 export const AboutFilm = styled.ul`
-  & * {
+  /* & * {
     outline: 1px solid blueviolet; //
-  }
+  } */
 
   display: flex;
 `;
