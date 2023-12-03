@@ -13,6 +13,10 @@ export const Section = styled.section`
   background-color: #fefdf4; */
 
   padding: 25px 0;
+
+  & > h2 {
+    color: rgb(160, 160, 160);
+  }
 `;
 
 export const TitleWrapp = styled.div`
