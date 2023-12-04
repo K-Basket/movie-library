@@ -105,10 +105,12 @@ export const Descript = styled.li`
 `;
 
 export const ProductCompanies = styled.ul`
+  padding: 50px 0;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: 100px;
 `;
 
 export const Company = styled.li``;

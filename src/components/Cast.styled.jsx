@@ -36,13 +36,13 @@ export const CardCast = styled.ul`
   @media ${device.tablet} {
     margin-top: -${gapGridTopTablet}px;
     margin-left: -${gapGridLeftTablet}px;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
   }
 
   @media ${device.desktop} {
     margin-top: -${gapGridTopDesktop}px;
     margin-left: -${gapGridLeftDesktop}px;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
   }
 `;
 
@@ -122,4 +122,24 @@ export const TitlePopularity = styled.p`
   line-height: calc(18px / 12px);
 
   color: ${grayColor};
+`;
+
+export const ButtonSeeMore = styled.button`
+  display: block;
+  margin: 0 auto;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: calc(24px / 16pxpx);
+
+  border: none;
+  background-color: initial;
+
+  color: ${grayColor};
+  transition: ${transition};
+
+  &:hover {
+    color: ${redColor};
+    scale: 1.02;
+  }
 `;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useGetCastMovieQuery } from 'redux/moviesSlice';
 import {
+  ButtonSeeMore,
   Card,
   CardCast,
   CardContent,
@@ -86,9 +87,9 @@ export const Cast = () => {
         })}
       </CardCast>
 
-      <button type="button" onClick={makeActive}>
-        {isActive ? 'see less' : 'see more'}
-      </button>
+      <ButtonSeeMore type="button" onClick={makeActive}>
+        {isActive ? 'see less' : 'see more actors'}
+      </ButtonSeeMore>
     </>
   );
 };
