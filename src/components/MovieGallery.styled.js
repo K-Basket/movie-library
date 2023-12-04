@@ -93,6 +93,7 @@ export const Card = styled.article`
 
 export const CardThumb = styled.div`
   position: relative;
+
   & img {
     height: 660px;
   }

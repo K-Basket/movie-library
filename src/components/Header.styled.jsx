@@ -22,7 +22,8 @@ export const HeaderWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 460px;
+  /* height: 460px; */
+  height: 260px;
 
   padding: 0 14px;
 
