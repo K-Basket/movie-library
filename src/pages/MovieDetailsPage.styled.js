@@ -13,10 +13,6 @@ export const Section = styled.section`
   background-color: #fefdf4; */
 
   padding: 25px 0;
-
-  & > h2 {
-    color: rgb(160, 160, 160);
-  }
 `;
 
 export const TitleWrapp = styled.div`
@@ -105,12 +101,13 @@ export const Descript = styled.li`
 `;
 
 export const ProductCompanies = styled.ul`
-  padding: 50px 0;
+  /* padding: 100px 0; */
+  min-height: 350px;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 100px;
+  gap: 150px;
 `;
 
 export const Company = styled.li``;

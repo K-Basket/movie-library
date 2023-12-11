@@ -17,6 +17,7 @@ import {
 import { addCommaDelimiter } from 'helpers/helpers';
 import { Cast } from 'components/Cast';
 import { Reviews } from 'components/Reviews';
+import { VisuallyHidden } from 'utils/common.styled';
 
 const MovieDetailsPage = () => {
   const location = useLocation();
@@ -76,7 +77,7 @@ const MovieDetailsPage = () => {
       </TitleWrapp>
 
       <Section>
-        <h2>Film description</h2>
+        <VisuallyHidden>Film description</VisuallyHidden>
         <AboutFilm>
           <ImageMovie>
             <img
@@ -154,7 +155,7 @@ const MovieDetailsPage = () => {
       </Section>
 
       <Section>
-        <h2>Product Companies</h2>
+        <VisuallyHidden>Product Companies</VisuallyHidden>
 
         <ProductCompanies>
           {production_companies.map(
@@ -173,13 +174,13 @@ const MovieDetailsPage = () => {
       </Section>
 
       <Section>
-        <h2>Cast</h2>
+        <VisuallyHidden>Cast</VisuallyHidden>
 
         <Cast />
       </Section>
 
       <Section>
-        <h2>Reviews for a movie:</h2>
+        <VisuallyHidden>Reviews for a movie:</VisuallyHidden>
 
         <Reviews />
       </Section>

@@ -101,6 +101,7 @@ export const CardContent = styled.div`
 `;
 
 export const TitleName = styled.p`
+  margin-bottom: 3px;
   font-size: 18px;
   font-weight: 500;
   line-height: calc(24px / 18px);
@@ -109,9 +110,9 @@ export const TitleName = styled.p`
 `;
 
 export const TitleCharacter = styled.p`
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
-  line-height: calc(24px / 16pxpx);
+  line-height: calc(24px / 16px);
 
   color: ${redColor};
 `;
