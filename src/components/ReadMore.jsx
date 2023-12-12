@@ -13,6 +13,7 @@ export const ReadMore = ({ children }) => {
   return (
     <Text>
       {isReadMore ? text.slice(0, numCharacters) : text}
+
       {text.length >= numCharacters && (
         <TextReadMore onClick={toggleReadMore}>
           {isReadMore ? ' ...read more' : ' show less'}

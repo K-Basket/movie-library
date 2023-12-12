@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useGetCastMovieQuery } from 'redux/moviesSlice';
 import {
-  ButtonSeeMore,
   Card,
   CardCast,
   CardContent,
@@ -14,6 +13,7 @@ import {
 } from './Cast.styled';
 import { size } from 'utils/variables.styled';
 import { useResize } from 'hooks/useResize';
+import { BtnSeeMore } from './BtnSeeMore';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
@@ -87,9 +87,13 @@ export const Cast = () => {
         })}
       </CardCast>
 
-      <ButtonSeeMore type="button" onClick={makeActive}>
+      {/* <ButtonSeeMore type="button" onClick={makeActive}>
         {isActive ? 'see less' : 'see more actors'}
-      </ButtonSeeMore>
+      </ButtonSeeMore> */}
+
+      <BtnSeeMore click={makeActive}>
+        {isActive ? 'see less actors' : 'see more actors'}
+      </BtnSeeMore>
     </>
   );
 };

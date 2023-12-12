@@ -124,23 +124,3 @@ export const TitlePopularity = styled.p`
 
   color: ${grayColor};
 `;
-
-export const ButtonSeeMore = styled.button`
-  display: block;
-  margin: 0 auto;
-
-  font-size: 16px;
-  font-weight: 500;
-  line-height: calc(24px / 16pxpx);
-
-  border: none;
-  background-color: initial;
-
-  color: ${grayColor};
-  transition: ${transition};
-
-  &:hover {
-    color: ${redColor};
-    scale: 1.02;
-  }
-`;
