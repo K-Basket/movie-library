@@ -3,11 +3,14 @@ import { useParams } from 'react-router-dom';
 import { useGetUserReviewsMovieQuery } from 'redux/moviesSlice';
 import { Text, TitleAuthorRewiews, TitleWrapp } from './Reviews.styled';
 import { ReadMore } from './ReadMore';
+import { BtnSeeMore } from './BtnSeeMore';
 
-export const Reviews = ({ isActive }) => {
+export const Reviews = () => {
   const { id: movieId } = useParams();
   const { data, isLoading, error } = useGetUserReviewsMovieQuery(movieId);
   const [dataReviews, setDataReviews] = useState([]);
+  const [isActive, setIsActive] = useState(false);
+  const numberReviews = 3;
 
   const descendingReviews = useMemo(() => {
     if (data) {
@@ -23,39 +26,50 @@ export const Reviews = ({ isActive }) => {
       if (isActive) return setDataReviews(descendingReviews);
 
       const res = [];
-      const numberReviews = 3;
 
       for (let i = 0; i < numberReviews; i += 1) {
         if (descendingReviews[i]) res.push(descendingReviews[i]);
       }
       setDataReviews(res);
     }
-  }, [data, isActive, descendingReviews]);
+  }, [data, isActive, descendingReviews, numberReviews]);
+
+  const makeActive = () => {
+    setIsActive(!isActive);
+  };
 
   if (isLoading && !error)
     return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
 
   return (
-    <ul style={{ margin: '10px 0' }}>
-      {dataReviews?.map(({ id, author, content, created_at }) => {
-        const createdDate = created_at.slice(0, 10);
-        const contentRewiews = content;
+    <>
+      <ul style={{ margin: '10px 0' }}>
+        {dataReviews?.map(({ id, author, content, created_at }) => {
+          const createdDate = created_at.slice(0, 10);
+          const contentRewiews = content;
 
-        return (
-          <li key={id} style={{ marginBottom: '20px' }}>
-            {
-              <>
-                <TitleWrapp>
-                  <TitleAuthorRewiews>{author}</TitleAuthorRewiews>
-                  <Text> {`(${createdDate})`}</Text>
-                </TitleWrapp>
+          return (
+            <li key={id} style={{ marginBottom: '20px' }}>
+              {
+                <>
+                  <TitleWrapp>
+                    <TitleAuthorRewiews>{author}</TitleAuthorRewiews>
+                    <Text> {`(${createdDate})`}</Text>
+                  </TitleWrapp>
 
-                <ReadMore>{contentRewiews}</ReadMore>
-              </>
-            }
-          </li>
-        );
-      })}
-    </ul>
+                  <ReadMore>{contentRewiews}</ReadMore>
+                </>
+              }
+            </li>
+          );
+        })}
+      </ul>
+
+      {dataReviews.length >= numberReviews && (
+        <BtnSeeMore click={makeActive}>
+          {isActive ? 'see less reviews' : 'see more reviews'}
+        </BtnSeeMore>
+      )}
+    </>
   );
 };

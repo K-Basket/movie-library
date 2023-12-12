@@ -57,8 +57,6 @@ export const Cast = () => {
   if (isLoading && !error)
     return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
 
-  // if (!data) return;
-
   return (
     <>
       <CardCast>
@@ -86,10 +84,6 @@ export const Cast = () => {
           );
         })}
       </CardCast>
-
-      {/* <ButtonSeeMore type="button" onClick={makeActive}>
-        {isActive ? 'see less' : 'see more actors'}
-      </ButtonSeeMore> */}
 
       <BtnSeeMore click={makeActive}>
         {isActive ? 'see less actors' : 'see more actors'}

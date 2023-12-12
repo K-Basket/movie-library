@@ -18,8 +18,6 @@ import { addCommaDelimiter } from 'helpers/helpers';
 import { Cast } from 'components/Cast';
 import { Reviews } from 'components/Reviews';
 import { VisuallyHidden } from 'utils/common.styled';
-import { BtnSeeMore } from 'components/BtnSeeMore';
-import { useState } from 'react';
 
 const MovieDetailsPage = () => {
   const location = useLocation();
@@ -31,13 +29,6 @@ const MovieDetailsPage = () => {
     error: errorMovie,
   } = useGetMovieByIdQuery(movieId);
   const { data: dataCasts } = useGetCastMovieQuery(movieId);
-  const [isActive, setIsActive] = useState(false);
-
-  const makeActive = () => {
-    setIsActive(!isActive);
-  };
-
-  // const { data: dataImages } = useGetImagesMovieQuery(movieId);
 
   if (isLoadingMovie && !errorMovie)
     return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
@@ -155,8 +146,6 @@ const MovieDetailsPage = () => {
                 }
               </Descript>
             </Item>
-
-            {/* <p style={{ fontSize: '25px' }}>{tagline}</p> */}
           </DescriptionMovie>
         </AboutFilm>
       </Section>
@@ -189,10 +178,7 @@ const MovieDetailsPage = () => {
       <Section>
         <VisuallyHidden>Reviews for a movie:</VisuallyHidden>
 
-        <Reviews isActive={isActive} />
-        <BtnSeeMore click={makeActive}>
-          {isActive ? 'see less reviews' : 'see more reviews'}
-        </BtnSeeMore>
+        <Reviews />
       </Section>
     </>
   );
