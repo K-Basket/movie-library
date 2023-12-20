@@ -14,17 +14,32 @@ export const Section = styled.section`
 `;
 
 export const TitleWrapp = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  /* text-align: center; */
+
+  @media ${device.tablet} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 export const Title = styled.h1`
-  font-size: 33px;
+  margin-bottom: 15px;
+
+  font-size: 25px;
   font-weight: 500;
   line-height: normal;
 
   color: ${blackColor};
+
+  @media ${device.tablet} {
+    margin-bottom: 0;
+    font-size: 30px;
+  }
+
+  @media ${device.desktop} {
+    font-size: 35px;
+  }
 `;
 
 export const BtnGoToBack = styled(Link)`
@@ -159,13 +174,21 @@ export const Descript = styled.li`
 export const wrappItemTablet = styled.div``;
 
 export const ProductCompanies = styled.ul`
-  /* padding: 100px 0; */
-  min-height: 350px;
+  /* outline: 1px solid salmon; */
 
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 150px;
+  gap: 100px;
+
+  @media ${device.tablet} {
+    min-height: 250px;
+  }
+  @media ${device.desktop} {
+    min-height: 350px;
+    gap: 150px;
+  }
 `;
 
 export const Company = styled.li``;

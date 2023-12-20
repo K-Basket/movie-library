@@ -175,7 +175,7 @@ const MovieDetailsPage = () => {
         {deviceTablet && (
           <div
             style={{
-              marginTop: '15px',
+              marginTop: '40px',
               display: 'flex',
               flexDirection: 'column',
               gap: '15px',
@@ -211,7 +211,6 @@ const MovieDetailsPage = () => {
 
       <Section>
         <VisuallyHidden>Product Companies</VisuallyHidden>
-
         <ProductCompanies>
           {production_companies.map(
             ({ id, logo_path }) =>
@@ -230,13 +229,11 @@ const MovieDetailsPage = () => {
 
       <Section>
         <VisuallyHidden>Cast</VisuallyHidden>
-
         <Cast />
       </Section>
 
       <Section>
         <VisuallyHidden>Reviews for a movie:</VisuallyHidden>
-
         <Reviews />
       </Section>
     </>
