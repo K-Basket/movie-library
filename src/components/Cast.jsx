@@ -25,16 +25,18 @@ export const Cast = () => {
   const [isActive, setIsActive] = useState(false);
   const [numberCardCast, setNumberCardCast] = useState(5);
 
-  const widthScreen = useResize();
+  const currentScreenWidth = useResize();
 
   useEffect(() => {
-    if (widthScreen <= Number.parseInt(size.tablet)) setNumberCardCast(2);
+    if (currentScreenWidth <= Number.parseInt(size.tablet))
+      setNumberCardCast(2);
     if (
-      widthScreen >= Number.parseInt(size.tablet) &&
-      widthScreen < Number.parseInt(size.desktop)
+      currentScreenWidth >= Number.parseInt(size.tablet) &&
+      currentScreenWidth < Number.parseInt(size.desktop)
     )
       setNumberCardCast(4);
-    if (widthScreen >= Number.parseInt(size.desktop)) setNumberCardCast(6);
+    if (currentScreenWidth >= Number.parseInt(size.desktop))
+      setNumberCardCast(6);
 
     if (data) {
       const { cast } = data;
@@ -48,7 +50,7 @@ export const Cast = () => {
       }
       setDataCasts(res);
     }
-  }, [data, isActive, numberCardCast, widthScreen]);
+  }, [data, isActive, numberCardCast, currentScreenWidth]);
 
   const makeActive = () => {
     setIsActive(!isActive);

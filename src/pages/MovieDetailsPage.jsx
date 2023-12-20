@@ -11,6 +11,7 @@ import {
   Name,
   ProductCompanies,
   Section,
+  Tagline,
   Title,
   TitleWrapp,
 } from './MovieDetailsPage.styled';
@@ -18,17 +19,32 @@ import { addCommaDelimiter } from 'helpers/helpers';
 import { Cast } from 'components/Cast';
 import { Reviews } from 'components/Reviews';
 import { VisuallyHidden } from 'utils/common.styled';
+import { useResize } from 'hooks/useResize';
+import { useEffect, useState } from 'react';
+import { size } from 'utils/variables.styled';
 
 const MovieDetailsPage = () => {
   const location = useLocation();
   const { id: movieId } = useParams();
-
+  const currentScreenWidth = useResize();
   const {
     data: dataMovie,
     isLoading: isLoadingMovie,
     error: errorMovie,
   } = useGetMovieByIdQuery(movieId);
   const { data: dataCasts } = useGetCastMovieQuery(movieId);
+
+  const [deviceTablet, setDeviceTablet] = useState(false);
+
+  useEffect(() => {
+    if (
+      currentScreenWidth >= Number.parseInt(size.tablet) &&
+      currentScreenWidth < Number.parseInt(size.desktop)
+    )
+      return setDeviceTablet(true);
+
+    setDeviceTablet(false);
+  }, [currentScreenWidth]);
 
   if (isLoadingMovie && !errorMovie)
     return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
@@ -76,6 +92,7 @@ const MovieDetailsPage = () => {
 
       <Section>
         <VisuallyHidden>Film description</VisuallyHidden>
+
         <AboutFilm>
           <ImageMovie>
             <img
@@ -85,7 +102,7 @@ const MovieDetailsPage = () => {
           </ImageMovie>
 
           <DescriptionMovie>
-            <p style={{ fontSize: '25px' }}>{tagline}</p>
+            <Tagline>{tagline}</Tagline>
 
             <Item>
               <Name>Year:</Name>
@@ -107,10 +124,12 @@ const MovieDetailsPage = () => {
               <Descript>{country.join(', ')}</Descript>
             </Item>
 
-            <Item>
-              <Name>Cast:</Name>
-              <Descript>{getCastList(cast, '10')}...</Descript>
-            </Item>
+            {!deviceTablet && (
+              <Item>
+                <Name>Cast:</Name>
+                <Descript>{getCastList(cast, '10')}...</Descript>
+              </Item>
+            )}
 
             <Item>
               <Name>Budget:</Name>
@@ -127,13 +146,53 @@ const MovieDetailsPage = () => {
               <Descript>{popularity}</Descript>
             </Item>
 
+            {!deviceTablet && (
+              <Item>
+                <Name>About:</Name>
+                <Descript>{overview}</Descript>
+              </Item>
+            )}
+
+            {!deviceTablet && (
+              <Item>
+                <Name>Home page:</Name>
+                <Descript>
+                  {
+                    <Link
+                      to={homepage}
+                      target="_blank"
+                      rel="noopener nofollow noreferrer"
+                    >
+                      Go to the {title} movie page
+                    </Link>
+                  }
+                </Descript>
+              </Item>
+            )}
+          </DescriptionMovie>
+        </AboutFilm>
+
+        {deviceTablet && (
+          <div
+            style={{
+              marginTop: '15px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '15px',
+            }}
+          >
             <Item>
-              <Name>About:</Name>
+              <Name style={{ minWidth: '20%' }}>About:</Name>
               <Descript>{overview}</Descript>
             </Item>
 
             <Item>
-              <Name>Home page:</Name>
+              <Name style={{ minWidth: '20%' }}>Cast:</Name>
+              <Descript>{getCastList(cast, '10')}...</Descript>
+            </Item>
+
+            <Item>
+              <Name style={{ minWidth: '20%' }}>Home page:</Name>
               <Descript>
                 {
                   <Link
@@ -146,8 +205,8 @@ const MovieDetailsPage = () => {
                 }
               </Descript>
             </Item>
-          </DescriptionMovie>
-        </AboutFilm>
+          </div>
+        )}
       </Section>
 
       <Section>
