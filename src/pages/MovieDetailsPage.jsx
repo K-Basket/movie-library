@@ -1,5 +1,5 @@
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { useGetCastMovieQuery, useGetMovieByIdQuery } from 'redux/moviesSlice';
+import { useGetMovieByIdQuery } from 'redux/moviesSlice';
 import {
   AboutFilm,
   BtnGoToBack,
@@ -22,17 +22,14 @@ import { VisuallyHidden } from 'utils/common.styled';
 import { useResize } from 'hooks/useResize';
 import { useEffect, useState } from 'react';
 import { size } from 'utils/variables.styled';
+import { Trailer } from 'components/Trailer';
+import { CastList } from 'components/CastList';
 
 const MovieDetailsPage = () => {
   const location = useLocation();
   const { id: movieId } = useParams();
   const currentScreenWidth = useResize();
-  const {
-    data: dataMovie,
-    isLoading: isLoadingMovie,
-    error: errorMovie,
-  } = useGetMovieByIdQuery(movieId);
-  const { data: dataCasts } = useGetCastMovieQuery(movieId);
+  const { data, isLoading, error } = useGetMovieByIdQuery(movieId);
 
   const [deviceTablet, setDeviceTablet] = useState(false);
 
@@ -46,10 +43,10 @@ const MovieDetailsPage = () => {
     setDeviceTablet(false);
   }, [currentScreenWidth]);
 
-  if (isLoadingMovie && !errorMovie)
+  if (isLoading && !error)
     return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
 
-  if (!dataMovie || !dataCasts) return;
+  if (!data) return;
 
   const {
     original_title,
@@ -66,22 +63,15 @@ const MovieDetailsPage = () => {
     tagline,
     vote_average,
     vote_count,
-  } = dataMovie;
-  const { cast } = dataCasts;
+  } = data;
 
   const year = release_date.split('-');
   const genresMovie = genres.map(({ name }) => name);
   const country = production_countries.map(({ name }) => name);
 
-  const getCastList = (data, num) => {
-    const res = [];
-
-    for (let i = 0; i < num; i += 1) {
-      if (data[i]) res.push(data[i]); // перевірка, якщо актерів меньше чим num
-    }
-
-    return res.map(({ name }) => name).join(', ');
-  };
+  const isProdCompanies = production_companies.some(
+    ({ logo_path }) => logo_path
+  );
 
   return (
     <>
@@ -127,7 +117,9 @@ const MovieDetailsPage = () => {
             {!deviceTablet && (
               <Item>
                 <Name>Cast:</Name>
-                <Descript>{getCastList(cast, '10')}...</Descript>
+                <Descript>
+                  <CastList movieId={movieId} num={10} />
+                </Descript>
               </Item>
             )}
 
@@ -188,7 +180,9 @@ const MovieDetailsPage = () => {
 
             <Item>
               <Name style={{ minWidth: '20%' }}>Cast:</Name>
-              <Descript>{getCastList(cast, '10')}...</Descript>
+              <Descript>
+                <CastList movieId={movieId} num={10} />
+              </Descript>
             </Item>
 
             <Item>
@@ -209,26 +203,33 @@ const MovieDetailsPage = () => {
         )}
       </Section>
 
+      {isProdCompanies && (
+        <Section>
+          <VisuallyHidden>Product companies</VisuallyHidden>
+          <ProductCompanies>
+            {production_companies.map(
+              ({ id, logo_path }) =>
+                logo_path && (
+                  <Company key={id}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500${logo_path}`}
+                      alt={logo_path}
+                      width="150"
+                    />
+                  </Company>
+                )
+            )}
+          </ProductCompanies>
+        </Section>
+      )}
+
       <Section>
-        <VisuallyHidden>Product Companies</VisuallyHidden>
-        <ProductCompanies>
-          {production_companies.map(
-            ({ id, logo_path }) =>
-              logo_path && (
-                <Company key={id}>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${logo_path}`}
-                    alt={logo_path}
-                    width="150"
-                  />
-                </Company>
-              )
-          )}
-        </ProductCompanies>
+        <VisuallyHidden>Movie trailer</VisuallyHidden>
+        <Trailer movieId={movieId} />
       </Section>
 
       <Section>
-        <VisuallyHidden>Cast</VisuallyHidden>
+        <VisuallyHidden>Cast of the film</VisuallyHidden>
         <Cast />
       </Section>
 

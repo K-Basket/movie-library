@@ -39,6 +39,10 @@ export const moviesSlice = createApi({
       query: id => `/person/${id}?${API_KEY}&language=en-US`,
       providesTags: ['movie'],
     }),
+    getTrailerById: builder.query({
+      query: id => `/movie/${id}/videos?${API_KEY}`,
+      providesTags: ['movie'],
+    }),
     getGenresList: builder.query({
       query: () => `/genre/movie/list?${API_KEY}&language=en`,
       providesTags: ['movie'],
@@ -54,5 +58,6 @@ export const {
   useGetImagesMovieQuery,
   useGetCastMovieQuery,
   useGetPersonByIdQuery,
+  useGetTrailerByIdQuery,
   useGetGenresListQuery,
 } = moviesSlice;
