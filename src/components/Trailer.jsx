@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import YouTube from 'react-youtube';
 import { useGetTrailerByIdQuery } from 'redux/moviesSlice';
+import { Item, List, WrappTrailer, YoutubeStyle } from './Trailer.styled';
 
 export const Trailer = ({ movieId }) => {
   const { data } = useGetTrailerByIdQuery(movieId);
@@ -14,29 +14,26 @@ export const Trailer = ({ movieId }) => {
   if (!videoId) setVideoId(key);
 
   return (
-    <div style={{ display: 'flex', gap: '30px' }}>
-      <YouTube
+    <WrappTrailer>
+      <YoutubeStyle
         videoId={videoId}
-        opts={{ width: '640px', height: '390px' }}
-        style={{ borderRadius: '15px', overflow: 'hidden' }}
+        // opts={{ width: '640px', height: '390px' }}
+        title="videoPlayer"
       />
-      <ul>
+
+      <Item>
         {results.map(({ id, name, key }) => (
-          <li
-            style={{
-              cursor: 'pointer',
-              marginBottom: '5px',
-              color: videoId === key && 'red',
-            }}
+          <List
             key={id}
+            $active={videoId === key}
             onClick={() => {
               setVideoId(key);
             }}
           >
             {name}
-          </li>
+          </List>
         ))}
-      </ul>
-    </div>
+      </Item>
+    </WrappTrailer>
   );
 };
