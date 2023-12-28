@@ -48,7 +48,8 @@ export const Header = () => {
               name="searchQuery"
               autoComplete="off"
               // autoFocus
-              placeholder="Movie search"
+              // placeholder="Movie search"
+              placeholder="The field is under dev"
             />
 
             <IconButton type="submit" onClick={handleMovieSearch}>
