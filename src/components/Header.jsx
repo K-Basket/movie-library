@@ -1,9 +1,10 @@
+import { useLocation } from 'react-router-dom';
+import { useMoviesContext } from 'redux/Context';
+
 import sprite from 'images/sprite.svg';
 import {
   Button,
   HeaderWrap,
-  IconButton,
-  Input,
   LinkLogo,
   Nav,
   NavLinkStyled,
@@ -12,17 +13,11 @@ import {
   WrappLinkLogo,
   WrappLogoBtn,
 } from './Header.styled';
-import { useLocation } from 'react-router-dom';
-import { useMoviesContext } from 'redux/Context';
+import { SearchField } from './SearchField';
 
 export const Header = () => {
   const { pathname } = useLocation();
   const { isActiveBtn, setIsActiveBtn } = useMoviesContext();
-
-  const handleMovieSearch = evt => {
-    evt.preventDefault();
-    console.log('Button Movie Search');
-  };
 
   const onMakeActiveBtn = evt => {
     const content = evt.target.textContent;
@@ -41,24 +36,7 @@ export const Header = () => {
         <NavLinkStyled to="/">Home</NavLinkStyled>
         <NavLinkStyled to="/movies">My Library</NavLinkStyled>
 
-        {pathname === '/' && (
-          <form>
-            <Input
-              type="text"
-              name="searchQuery"
-              autoComplete="off"
-              // autoFocus
-              // placeholder="Movie search"
-              placeholder="The field is under dev"
-            />
-
-            <IconButton type="submit" onClick={handleMovieSearch}>
-              <svg width="16px" height="16px">
-                <use href={`${sprite}#icon-search`}></use>
-              </svg>
-            </IconButton>
-          </form>
-        )}
+        {pathname === '/' && <SearchField />}
       </Nav>
 
       {/* Якщо не знайдено - true, в протилежному - false */}

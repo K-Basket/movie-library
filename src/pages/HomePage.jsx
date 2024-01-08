@@ -31,6 +31,18 @@ const HomePage = () => {
 
   return (
     <div ref={refGallery}>
+      {true && (
+        <MovieGallery
+          title="Search result for your Query"
+          dataMovies={moviesTrendDay}
+          isLoading={isLoadingTrendDay}
+          error={errorTrendDay}
+          setPage={setPageDay}
+          createGenres={createGenresForTrendMovie}
+          route="movies/"
+        />
+      )}
+
       {isActiveBtn && (
         <MovieGallery
           title="Popular films of the Week"
