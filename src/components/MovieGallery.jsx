@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   ButtonLoadMore,
@@ -9,8 +10,6 @@ import {
   Title,
 } from './MovieGallery.styled';
 import { useGetGenresListQuery } from 'redux/moviesSlice';
-
-import { useRef } from 'react';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
@@ -25,10 +24,6 @@ export const MovieGallery = ({
 }) => {
   const location = useLocation();
   const { data: genresList } = useGetGenresListQuery();
-
-  const titleArray = title.split(' ');
-  const titleStart = titleArray;
-  const titleEnd = titleStart.pop();
 
   const refItem = useRef();
 
@@ -51,8 +46,8 @@ export const MovieGallery = ({
   return (
     <>
       <Title>
-        {`${titleStart.join(' ')} `}
-        <span>{titleEnd}</span>
+        {title[0]}
+        <span>{` ${title[1]}`}</span>
       </Title>
       <CardSet>
         {dataMovies &&
