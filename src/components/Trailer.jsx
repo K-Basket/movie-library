@@ -9,6 +9,7 @@ export const Trailer = ({ movieId }) => {
   if (!data) return;
 
   const { results } = data;
+  if (results.length === 0) return;
 
   const { key } = results.find(el => el.type === 'Trailer');
   if (!videoId) setVideoId(key);
