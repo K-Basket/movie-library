@@ -1,5 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useGetTrendDayQuery, useGetTrendWeekQuery } from './moviesSlice';
+import {
+  useGetMoviesSearchQuery,
+  useGetTrendDayQuery,
+  useGetTrendWeekQuery,
+} from './moviesSlice';
 
 const MoviesContext = createContext();
 export const useMoviesContext = () => useContext(MoviesContext);
@@ -8,6 +12,11 @@ export const Context = ({ children }) => {
   const [isActiveBtn, setIsActiveBtn] = useState(true);
   const [pageWeek, setPageWeek] = useState(1);
   const [pageDay, setPageDay] = useState(1);
+  const [pageSearch, setPageSearch] = useState(1);
+
+  const [moviesTrendWeek, setMoviesTrendWeek] = useState([]);
+  const [moviesTrendDay, setMoviesTrendDay] = useState([]);
+  const [moviesSearch, setMoviesSearch] = useState({ data: [], query: '' });
 
   const {
     data: dataTrendWeek,
@@ -20,8 +29,26 @@ export const Context = ({ children }) => {
     error: errorTrendDay,
   } = useGetTrendDayQuery(pageDay);
 
-  const [moviesTrendWeek, setMoviesTrendWeek] = useState([]);
-  const [moviesTrendDay, setMoviesTrendDay] = useState([]);
+  const { data, isLoading, error } = useGetMoviesSearchQuery({
+    // search: moviesSearch?.query ?? [],
+    search: moviesSearch.query,
+    page: pageSearch,
+  });
+
+  useEffect(() => {
+    if (isLoading || error) return;
+
+    setMoviesSearch(prev => ({
+      ...prev,
+      ...{ data: [...prev.data, ...data.results] },
+    }));
+  }, [data, isLoading, error]);
+
+  // // =================================================================
+  // useEffect(() => {
+  //   console.log('moviesSearch :>> ', moviesSearch);
+  // }, [moviesSearch]);
+  // // =================================================================
 
   useEffect(() => {
     if (dataTrendWeek)
@@ -45,14 +72,19 @@ export const Context = ({ children }) => {
         pageDay,
         setPageDay,
 
+        pageSearch,
+        setPageSearch,
+
         moviesTrendWeek,
         isLoadingTrendWeek,
         errorTrendWeek,
 
-        // setMoviesTrendWeek,
         moviesTrendDay,
         isLoadingTrendDay,
         errorTrendDay,
+
+        moviesSearch,
+        setMoviesSearch,
       }}
     >
       {children}

@@ -15,6 +15,8 @@ const HomePage = () => {
     setPageDay,
     isLoadingTrendDay,
     errorTrendDay,
+    moviesSearch,
+    setPageSearch,
   } = useMoviesContext();
   const refGallery = useRef();
   const [topPosition, setTopPosition] = useState();
@@ -29,23 +31,28 @@ const HomePage = () => {
     return () => window.removeEventListener('scroll', updatePosition);
   }, []);
 
-  return (
-    <div ref={refGallery}>
-      {true && (
+  if (moviesSearch.query)
+    return (
+      <div ref={refGallery}>
         <MovieGallery
-          title="Search result for your Query"
-          dataMovies={moviesTrendDay}
-          isLoading={isLoadingTrendDay}
-          error={errorTrendDay}
-          setPage={setPageDay}
+          title={[`Search result for:`, `"${moviesSearch.query}"`]}
+          // title={[`Search result for:`, `"temp"`]}
+          dataMovies={moviesSearch.data}
+          // dataMovies={moviesSearch}
+          setPage={setPageSearch}
           createGenres={createGenresForTrendMovie}
           route="movies/"
         />
-      )}
 
+        {topPosition < 0 && <BtnGoTo />}
+      </div>
+    );
+
+  return (
+    <div ref={refGallery}>
       {isActiveBtn && (
         <MovieGallery
-          title="Popular films of the Week"
+          title={[`Popular films of the`, `Week`]}
           dataMovies={moviesTrendWeek}
           isLoading={isLoadingTrendWeek}
           error={errorTrendWeek}
@@ -56,7 +63,7 @@ const HomePage = () => {
       )}
       {!isActiveBtn && (
         <MovieGallery
-          title="Popular films of the Day"
+          title={[`Popular films of the`, `Day`]}
           dataMovies={moviesTrendDay}
           isLoading={isLoadingTrendDay}
           error={errorTrendDay}

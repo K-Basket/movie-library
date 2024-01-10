@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IconButton, Input } from './SearchField.styled';
 import sprite from 'images/sprite.svg';
-import { useGetMoviesSearchQuery } from 'redux/moviesSlice';
+import { useMoviesContext } from 'redux/Context';
 
 export const SearchField = () => {
   const INITIAL_STATE = {
@@ -10,15 +10,7 @@ export const SearchField = () => {
 
   const [valueForm, setValueForm] = useState(INITIAL_STATE);
   const { query } = valueForm;
-  console.log('query :>> ', query);
-
-  const { data, isLoading, error } = useGetMoviesSearchQuery({
-    search: query,
-    page: '1',
-  });
-  console.log('data :>> ', data);
-  console.log('isLoading :>> ', isLoading);
-  console.log('error :>> ', error);
+  const { setMoviesSearch, setPageSearch } = useMoviesContext();
 
   const handleGhange = evt => {
     const { name, value } = evt.target;
@@ -27,7 +19,8 @@ export const SearchField = () => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    console.log('submit :>> ', valueForm);
+    setPageSearch(1);
+    setMoviesSearch({ data: [], query });
     setValueForm(INITIAL_STATE);
   };
 
