@@ -1,5 +1,4 @@
 import { MovieGallery } from 'components/MovieGallery';
-import { createGenresForTrendMovie } from 'helpers/helpers';
 import { useMoviesContext } from 'redux/Context';
 import { BtnGoTo } from 'components/BtnGoTo';
 import { useEffect, useRef, useState } from 'react';
@@ -36,11 +35,8 @@ const HomePage = () => {
       <div ref={refGallery}>
         <MovieGallery
           title={[`Search result for:`, `"${moviesSearch.query}"`]}
-          // title={[`Search result for:`, `"temp"`]}
           dataMovies={moviesSearch.data}
-          // dataMovies={moviesSearch}
           setPage={setPageSearch}
-          createGenres={createGenresForTrendMovie}
           route="movies/"
         />
 
@@ -57,7 +53,6 @@ const HomePage = () => {
           isLoading={isLoadingTrendWeek}
           error={errorTrendWeek}
           setPage={setPageWeek}
-          createGenres={createGenresForTrendMovie}
           route="movies/"
         />
       )}
@@ -68,7 +63,6 @@ const HomePage = () => {
           isLoading={isLoadingTrendDay}
           error={errorTrendDay}
           setPage={setPageDay}
-          createGenres={createGenresForTrendMovie}
           route="movies/"
         />
       )}

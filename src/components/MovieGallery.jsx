@@ -11,6 +11,7 @@ import {
 } from './MovieGallery.styled';
 import { useGetGenresListQuery } from 'redux/moviesSlice';
 import { useMoviesContext } from 'redux/Context';
+import { createGenresForTrendMovie } from 'helpers/helpers';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
@@ -59,7 +60,7 @@ export const MovieGallery = ({
                 poster_path ?? imgPlaceholder
               }`;
               const [yearRelease] = release_date.split('-');
-              const genre = createGenres(genresList, genre_ids);
+              const genre = createGenresForTrendMovie(genresList, genre_ids);
 
               return (
                 <Item key={id} ref={refItem}>
