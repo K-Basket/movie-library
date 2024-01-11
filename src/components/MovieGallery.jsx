@@ -10,6 +10,7 @@ import {
   Title,
 } from './MovieGallery.styled';
 import { useGetGenresListQuery } from 'redux/moviesSlice';
+import { useMoviesContext } from 'redux/Context';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
@@ -24,6 +25,7 @@ export const MovieGallery = ({
 }) => {
   const location = useLocation();
   const { data: genresList } = useGetGenresListQuery();
+  const { isActiveBtnLoadMore } = useMoviesContext();
 
   const refItem = useRef();
 
@@ -80,9 +82,11 @@ export const MovieGallery = ({
           )}
       </CardSet>
 
-      <ButtonLoadMore $active={true} onClick={addNewPage}>
-        load more
-      </ButtonLoadMore>
+      {isActiveBtnLoadMore && (
+        <ButtonLoadMore $active={true} onClick={addNewPage}>
+          load more
+        </ButtonLoadMore>
+      )}
     </>
   );
 };

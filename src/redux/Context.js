@@ -10,6 +10,8 @@ export const useMoviesContext = () => useContext(MoviesContext);
 
 export const Context = ({ children }) => {
   const [isActiveBtn, setIsActiveBtn] = useState(true);
+  const [isActiveBtnLoadMore, setIsActiveBtnLoadMore] = useState(true);
+
   const [pageWeek, setPageWeek] = useState(1);
   const [pageDay, setPageDay] = useState(1);
   const [pageSearch, setPageSearch] = useState(1);
@@ -17,6 +19,7 @@ export const Context = ({ children }) => {
   const [moviesTrendWeek, setMoviesTrendWeek] = useState([]);
   const [moviesTrendDay, setMoviesTrendDay] = useState([]);
   const [moviesSearch, setMoviesSearch] = useState({ data: [], query: '' });
+  const [isSearchResults, setIsSearchResults] = useState(true);
 
   const {
     data: dataTrendWeek,
@@ -29,8 +32,7 @@ export const Context = ({ children }) => {
     error: errorTrendDay,
   } = useGetTrendDayQuery(pageDay);
 
-  const { data, isLoading, error } = useGetMoviesSearchQuery({
-    // search: moviesSearch?.query ?? [],
+  const { data, isLoading, error, originalArgs } = useGetMoviesSearchQuery({
     search: moviesSearch.query,
     page: pageSearch,
   });
@@ -44,11 +46,27 @@ export const Context = ({ children }) => {
     }));
   }, [data, isLoading, error]);
 
-  // // =================================================================
+  useEffect(() => {
+    if (isLoading || error) return;
+
+    setIsSearchResults(
+      data.results.length === 0 && originalArgs?.search ? false : true
+    );
+  }, [data, isLoading, error, originalArgs]);
+
+  // =========================== TEMP ======================================
   // useEffect(() => {
   //   console.log('moviesSearch :>> ', moviesSearch);
   // }, [moviesSearch]);
-  // // =================================================================
+
+  // useEffect(() => {
+  //   console.log('data :>> ', data);
+  // }, [data]);
+  // useEffect(() => {
+  //   console.log('isSearchResults :>> ', isSearchResults);
+  //   // console.log('search :>> ', search);
+  // }, [isSearchResults]);
+  // =========================== TEMP ======================================
 
   useEffect(() => {
     if (dataTrendWeek)
@@ -65,6 +83,9 @@ export const Context = ({ children }) => {
       value={{
         isActiveBtn,
         setIsActiveBtn,
+
+        isActiveBtnLoadMore,
+        setIsActiveBtnLoadMore,
 
         pageWeek,
         setPageWeek,
@@ -85,6 +106,8 @@ export const Context = ({ children }) => {
 
         moviesSearch,
         setMoviesSearch,
+
+        isSearchResults,
       }}
     >
       {children}

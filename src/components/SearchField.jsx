@@ -19,6 +19,9 @@ export const SearchField = () => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
+
+    if (!query) return;
+
     setPageSearch(1);
     setMoviesSearch({ data: [], query });
     setValueForm(INITIAL_STATE);

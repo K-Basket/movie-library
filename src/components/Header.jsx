@@ -17,7 +17,7 @@ import { SearchField } from './SearchField';
 
 export const Header = () => {
   const { pathname } = useLocation();
-  const { isActiveBtn, setIsActiveBtn } = useMoviesContext();
+  const { isActiveBtn, setIsActiveBtn, isSearchResults } = useMoviesContext();
 
   const onMakeActiveBtn = evt => {
     const content = evt.target.textContent;
@@ -39,8 +39,7 @@ export const Header = () => {
         {pathname === '/' && <SearchField />}
       </Nav>
 
-      {/* Якщо не знайдено - true, в протилежному - false */}
-      {true && (
+      {!isSearchResults && (
         <SearchResult>
           Search result not successful. Enter <br /> the correct movie name.
         </SearchResult>
