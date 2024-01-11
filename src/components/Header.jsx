@@ -39,7 +39,7 @@ export const Header = () => {
         {pathname === '/' && <SearchField />}
       </Nav>
 
-      {!isSearchResults && (
+      {isSearchResults && (
         <SearchResult>
           Search result not successful. Enter <br /> the correct movie name.
         </SearchResult>

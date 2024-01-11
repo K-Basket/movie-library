@@ -21,7 +21,6 @@ export const MovieGallery = ({
   error,
   setPage,
   title,
-  createGenres,
   route,
 }) => {
   const location = useLocation();

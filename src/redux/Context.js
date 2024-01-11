@@ -11,6 +11,7 @@ export const useMoviesContext = () => useContext(MoviesContext);
 export const Context = ({ children }) => {
   const [isActiveBtn, setIsActiveBtn] = useState(true);
   const [isActiveBtnLoadMore, setIsActiveBtnLoadMore] = useState(true);
+  const [isSearchResults, setIsSearchResults] = useState(false);
 
   const [pageWeek, setPageWeek] = useState(1);
   const [pageDay, setPageDay] = useState(1);
@@ -18,8 +19,11 @@ export const Context = ({ children }) => {
 
   const [moviesTrendWeek, setMoviesTrendWeek] = useState([]);
   const [moviesTrendDay, setMoviesTrendDay] = useState([]);
-  const [moviesSearch, setMoviesSearch] = useState({ data: [], query: '' });
-  const [isSearchResults, setIsSearchResults] = useState(true);
+  const [moviesSearch, setMoviesSearch] = useState({
+    data: [],
+    query: '',
+    total: null,
+  });
 
   const {
     data: dataTrendWeek,
@@ -32,10 +36,11 @@ export const Context = ({ children }) => {
     error: errorTrendDay,
   } = useGetTrendDayQuery(pageDay);
 
-  const { data, isLoading, error, originalArgs } = useGetMoviesSearchQuery({
+  const dataSearch = useGetMoviesSearchQuery({
     search: moviesSearch.query,
     page: pageSearch,
   });
+  const { data, isLoading, error, originalArgs } = dataSearch;
 
   useEffect(() => {
     if (isLoading || error) return;
@@ -43,30 +48,15 @@ export const Context = ({ children }) => {
     setMoviesSearch(prev => ({
       ...prev,
       ...{ data: [...prev.data, ...data.results] },
+      ...{ total: data.total_results },
     }));
   }, [data, isLoading, error]);
 
   useEffect(() => {
-    if (isLoading || error) return;
-
     setIsSearchResults(
-      data.results.length === 0 && originalArgs?.search ? false : true
+      !data?.total_results && originalArgs?.search ? true : false
     );
-  }, [data, isLoading, error, originalArgs]);
-
-  // =========================== TEMP ======================================
-  // useEffect(() => {
-  //   console.log('moviesSearch :>> ', moviesSearch);
-  // }, [moviesSearch]);
-
-  // useEffect(() => {
-  //   console.log('data :>> ', data);
-  // }, [data]);
-  // useEffect(() => {
-  //   console.log('isSearchResults :>> ', isSearchResults);
-  //   // console.log('search :>> ', search);
-  // }, [isSearchResults]);
-  // =========================== TEMP ======================================
+  }, [data, originalArgs]);
 
   useEffect(() => {
     if (dataTrendWeek)
