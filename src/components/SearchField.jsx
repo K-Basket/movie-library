@@ -10,7 +10,7 @@ export const SearchField = () => {
 
   const [valueForm, setValueForm] = useState(INITIAL_STATE);
   const { query } = valueForm;
-  const { setMoviesSearch, setPageSearch } = useMoviesContext();
+  const { moviesSearch, setMoviesSearch, setPageSearch } = useMoviesContext();
 
   const handleGhange = evt => {
     const { name, value } = evt.target;
@@ -23,7 +23,13 @@ export const SearchField = () => {
     if (!query) return;
 
     setPageSearch(1);
-    setMoviesSearch({ data: [], query });
+
+    if (moviesSearch.query !== query)
+      setMoviesSearch(prev => ({
+        ...prev,
+        ...{ isHidden: false, data: [], query },
+      }));
+
     setValueForm(INITIAL_STATE);
   };
 

@@ -171,7 +171,7 @@ export const SearchResult = styled.p`
 
   flex-grow: 1;
 
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   color: ${whiteColor};
 `;

@@ -30,7 +30,7 @@ const HomePage = () => {
     return () => window.removeEventListener('scroll', updatePosition);
   }, []);
 
-  if (moviesSearch.total)
+  if (!moviesSearch.isHidden)
     return (
       <div ref={refGallery}>
         <MovieGallery

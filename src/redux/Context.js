@@ -4,6 +4,7 @@ import {
   useGetTrendDayQuery,
   useGetTrendWeekQuery,
 } from './moviesSlice';
+import { INITIAL_STATE_MOVIE_SEARCH } from 'utils/common';
 
 const MoviesContext = createContext();
 export const useMoviesContext = () => useContext(MoviesContext);
@@ -19,11 +20,7 @@ export const Context = ({ children }) => {
 
   const [moviesTrendWeek, setMoviesTrendWeek] = useState([]);
   const [moviesTrendDay, setMoviesTrendDay] = useState([]);
-  const [moviesSearch, setMoviesSearch] = useState({
-    data: [],
-    query: '',
-    total: null,
-  });
+  const [moviesSearch, setMoviesSearch] = useState(INITIAL_STATE_MOVIE_SEARCH);
 
   const {
     data: dataTrendWeek,
@@ -36,11 +33,10 @@ export const Context = ({ children }) => {
     error: errorTrendDay,
   } = useGetTrendDayQuery(pageDay);
 
-  const dataSearch = useGetMoviesSearchQuery({
-    search: moviesSearch.query,
+  const { data, isLoading, error, originalArgs } = useGetMoviesSearchQuery({
+    search: moviesSearch?.query,
     page: pageSearch,
   });
-  const { data, isLoading, error, originalArgs } = dataSearch;
 
   useEffect(() => {
     if (isLoading || error) return;

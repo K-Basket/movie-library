@@ -14,13 +14,24 @@ import {
   WrappLogoBtn,
 } from './Header.styled';
 import { SearchField } from './SearchField';
+import { INITIAL_STATE_MOVIE_SEARCH } from 'utils/common';
 
 export const Header = () => {
   const { pathname } = useLocation();
-  const { isActiveBtn, setIsActiveBtn, isSearchResults } = useMoviesContext();
+  const { isActiveBtn, setIsActiveBtn, isSearchResults, setMoviesSearch } =
+    useMoviesContext();
 
   const onMakeActiveBtn = evt => {
     const content = evt.target.textContent;
+
+    setMoviesSearch(INITIAL_STATE_MOVIE_SEARCH);
+
+    // setMoviesSearch({
+    //   data: [],
+    //   query: '',
+    //   total: 0,
+    //   isHidden: true,
+    // });
 
     setIsActiveBtn(() => {
       if (content === 'Watched') return true;
