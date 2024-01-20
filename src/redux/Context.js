@@ -48,6 +48,7 @@ export const Context = ({ children }) => {
     }));
   }, [data, isLoading, error]);
 
+  // перевірка для виводу повідомлення під пошуковим вікном
   useEffect(() => {
     setIsSearchResults(
       !data?.total_results && originalArgs?.search ? true : false
@@ -63,6 +64,15 @@ export const Context = ({ children }) => {
     if (dataTrendDay)
       setMoviesTrendDay(prev => [...prev, ...dataTrendDay.results]);
   }, [dataTrendDay]);
+
+  // console.log('moviesSearch :>> ', moviesSearch);
+  useEffect(() => {
+    const { data, total } = moviesSearch;
+
+    if (data.length >= total && data.length)
+      return setIsActiveBtnLoadMore(false);
+    setIsActiveBtnLoadMore(true);
+  }, [moviesSearch]);
 
   return (
     <MoviesContext.Provider

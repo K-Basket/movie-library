@@ -24,7 +24,6 @@ export const Cast = () => {
   const [dataCasts, setDataCasts] = useState([]);
   const [isActive, setIsActive] = useState(false);
   const [numberCardCast, setNumberCardCast] = useState(5);
-  console.log('dataCasts :>> ', dataCasts);
 
   const currentScreenWidth = useResize();
 
