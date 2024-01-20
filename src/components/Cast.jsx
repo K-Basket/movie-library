@@ -24,6 +24,7 @@ export const Cast = () => {
   const [dataCasts, setDataCasts] = useState([]);
   const [isActive, setIsActive] = useState(false);
   const [numberCardCast, setNumberCardCast] = useState(5);
+  console.log('dataCasts :>> ', dataCasts);
 
   const currentScreenWidth = useResize();
 
@@ -87,9 +88,11 @@ export const Cast = () => {
         })}
       </CardCast>
 
-      <BtnSeeMore click={makeActive}>
-        {isActive ? 'see less actors' : 'see more actors'}
-      </BtnSeeMore>
+      {dataCasts.length !== 0 && (
+        <BtnSeeMore click={makeActive}>
+          {isActive ? 'see less actors' : 'see more actors'}
+        </BtnSeeMore>
+      )}
     </>
   );
 };
