@@ -5,6 +5,7 @@ import {
   useGetTrendWeekQuery,
 } from './moviesSlice';
 import { INITIAL_STATE_MOVIE_SEARCH } from 'utils/common';
+import { loadLocalStorage } from 'helpers/storage';
 
 const MoviesContext = createContext();
 export const useMoviesContext = () => useContext(MoviesContext);
@@ -22,6 +23,12 @@ export const Context = ({ children }) => {
   const [moviesTrendDay, setMoviesTrendDay] = useState([]);
   const [moviesSearch, setMoviesSearch] = useState(INITIAL_STATE_MOVIE_SEARCH);
 
+  const [idMovFavorites, setIdMovFavorites] = useState([]);
+  const [idMovQueue, setIdMovQueue] = useState([]);
+
+  console.log('idMovFavorites :>> ', idMovFavorites);
+  console.log('idMovQueue :>> ', idMovQueue);
+
   const {
     data: dataTrendWeek,
     isLoading: isLoadingTrendWeek,
@@ -37,6 +44,14 @@ export const Context = ({ children }) => {
     search: moviesSearch?.query,
     page: pageSearch,
   });
+
+  useEffect(() => {
+    const localFavorites = loadLocalStorage('favorites');
+    const localQueue = loadLocalStorage('queue');
+
+    if (localFavorites) setIdMovFavorites(loadLocalStorage('favorites'));
+    if (localQueue) setIdMovQueue(loadLocalStorage('queue'));
+  }, []);
 
   useEffect(() => {
     if (isLoading || error) return;
@@ -65,7 +80,6 @@ export const Context = ({ children }) => {
       setMoviesTrendDay(prev => [...prev, ...dataTrendDay.results]);
   }, [dataTrendDay]);
 
-  // console.log('moviesSearch :>> ', moviesSearch);
   useEffect(() => {
     const { data, total } = moviesSearch;
 
@@ -104,6 +118,12 @@ export const Context = ({ children }) => {
         setMoviesSearch,
 
         isSearchResults,
+
+        idMovFavorites,
+        setIdMovFavorites,
+
+        idMovQueue,
+        setIdMovQueue,
       }}
     >
       {children}

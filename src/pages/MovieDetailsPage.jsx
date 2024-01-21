@@ -24,6 +24,8 @@ import { useEffect, useState } from 'react';
 import { size } from 'utils/variables.styled';
 import { Trailer } from 'components/Trailer';
 import { CastList } from 'components/CastList';
+import { removeLocalStorage, saveLocalStorage } from 'helpers/storage';
+import { useMoviesContext } from 'redux/Context';
 
 const MovieDetailsPage = () => {
   const location = useLocation();
@@ -32,6 +34,8 @@ const MovieDetailsPage = () => {
   const { data, isLoading, error } = useGetMovieByIdQuery(movieId);
 
   const [deviceTablet, setDeviceTablet] = useState(false);
+  const { idMovFavorites, setIdMovFavorites, idMovQueue, setIdMovQueue } =
+    useMoviesContext();
 
   useEffect(() => {
     if (
@@ -73,8 +77,52 @@ const MovieDetailsPage = () => {
     ({ logo_path }) => logo_path
   );
 
+  const changeLocalStorage = (keyLocal, valueId, state, setState) => {
+    if (!state.includes(valueId)) {
+      setState(prev => [...prev, valueId]);
+      saveLocalStorage(keyLocal, [...state, valueId]);
+      return;
+    }
+
+    if (state.includes(valueId)) {
+      const res = [...state];
+      res.splice(state.indexOf(valueId), 1);
+      setState(res);
+      saveLocalStorage(keyLocal, res);
+    }
+
+    if (state.length === 1) removeLocalStorage(keyLocal);
+  };
+
   return (
     <>
+      <div style={{ display: 'flex', gap: '15px', padding: '20px 0' }}>
+        <button
+          type="button"
+          onClick={() =>
+            changeLocalStorage(
+              'favorites',
+              movieId,
+              idMovFavorites,
+              setIdMovFavorites
+            )
+          }
+        >
+          {idMovFavorites.includes(movieId)
+            ? 'remove from Favorites'
+            : 'add to Favorites'}
+        </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            changeLocalStorage('queue', movieId, idMovQueue, setIdMovQueue)
+          }
+        >
+          {idMovQueue.includes(movieId) ? 'remove from Queue' : 'add to Queue'}
+        </button>
+      </div>
+
       <TitleWrapp>
         <Title>Movie {title}</Title>
         <BtnGoToBack to={location.state?.from ?? '/'}>Go to back</BtnGoToBack>

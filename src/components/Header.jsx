@@ -34,7 +34,7 @@ export const Header = () => {
     // });
 
     setIsActiveBtn(() => {
-      if (content === 'Watched') return true;
+      if (content === 'Favorites') return true;
       if (content === 'Films of the week') return true;
 
       return false;
@@ -60,7 +60,7 @@ export const Header = () => {
         {pathname === '/movies' && (
           <WrappBtn>
             <Button $active={isActiveBtn} onClick={onMakeActiveBtn}>
-              Watched
+              Favorites
             </Button>
             <Button $active={!isActiveBtn} onClick={onMakeActiveBtn}>
               Queue
