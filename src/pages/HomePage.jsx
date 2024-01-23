@@ -30,12 +30,6 @@ const HomePage = () => {
     return () => window.removeEventListener('scroll', updatePosition);
   }, []);
 
-  // ==================================================================================
-
-  // console.log('moviesTrendDay :>> ', moviesTrendDay);
-
-  // ==================================================================================
-
   if (!moviesSearch.isHidden)
     return (
       <div ref={refGallery}>

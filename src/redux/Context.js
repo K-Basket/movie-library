@@ -34,6 +34,7 @@ export const Context = ({ children }) => {
     isLoading: isLoadingTrendWeek,
     error: errorTrendWeek,
   } = useGetTrendWeekQuery(pageWeek);
+
   const {
     data: dataTrendDay,
     isLoading: isLoadingTrendDay,
@@ -45,6 +46,8 @@ export const Context = ({ children }) => {
     page: pageSearch,
   });
 
+  // ===============================================================================================
+
   useEffect(() => {
     const localFavorites = loadLocalStorage('favorites');
     const localQueue = loadLocalStorage('queue');
@@ -52,8 +55,6 @@ export const Context = ({ children }) => {
     if (localFavorites) setIdMovFavorites(loadLocalStorage('favorites'));
     if (localQueue) setIdMovQueue(loadLocalStorage('queue'));
   }, []);
-
-  // ===============================================================================================
 
   useEffect(() => {
     fetchByIdsMovies(idMovFavorites, setMoviesFavorites);
@@ -63,10 +64,17 @@ export const Context = ({ children }) => {
     fetchByIdsMovies(idMovQueue, setMoviesQueue);
   }, [idMovQueue]);
 
-  console.log('moviesFavorites :>> ', moviesFavorites);
-  console.log('moviesQueue :>> ', moviesQueue);
-
   // ===============================================================================================
+
+  useEffect(() => {
+    if (dataTrendWeek)
+      setMoviesTrendWeek(prev => [...prev, ...dataTrendWeek.results]);
+  }, [dataTrendWeek]);
+
+  useEffect(() => {
+    if (dataTrendDay)
+      setMoviesTrendDay(prev => [...prev, ...dataTrendDay.results]);
+  }, [dataTrendDay]);
 
   useEffect(() => {
     if (isLoading || error) return;
@@ -84,16 +92,6 @@ export const Context = ({ children }) => {
       !data?.total_results && originalArgs?.search ? true : false
     );
   }, [data, originalArgs]);
-
-  useEffect(() => {
-    if (dataTrendWeek)
-      setMoviesTrendWeek(prev => [...prev, ...dataTrendWeek.results]);
-  }, [dataTrendWeek]);
-
-  useEffect(() => {
-    if (dataTrendDay)
-      setMoviesTrendDay(prev => [...prev, ...dataTrendDay.results]);
-  }, [dataTrendDay]);
 
   useEffect(() => {
     const { data, total } = moviesSearch;
@@ -142,6 +140,9 @@ export const Context = ({ children }) => {
 
         moviesFavorites,
         setMoviesFavorites,
+
+        moviesQueue,
+        setMoviesQueue,
       }}
     >
       {children}

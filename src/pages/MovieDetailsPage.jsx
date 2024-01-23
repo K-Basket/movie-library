@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useGetMovieByIdQuery } from 'redux/moviesSlice';
+
 import {
   AboutFilm,
   BtnGoToBack,
@@ -37,12 +37,6 @@ const MovieDetailsPage = () => {
   const [deviceTablet, setDeviceTablet] = useState(false);
   const { idMovFavorites, setIdMovFavorites, idMovQueue, setIdMovQueue } =
     useMoviesContext();
-
-  // ================================================================================
-
-  // console.log('data :>> ', data);
-
-  // ================================================================================
 
   useEffect(() => {
     if (

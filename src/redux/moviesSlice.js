@@ -64,7 +64,9 @@ export const fetchByIdsMovies = (idsMovies, setState) => {
     )
       .then(response => response.json())
       .then(response => {
-        setState(prev => [...prev, response]);
+        const genre_ids = response.genres.map(({ id }) => id);
+
+        setState(prev => [...prev, { ...response, genre_ids }]);
       })
       .catch(err => console.error(err));
   });
