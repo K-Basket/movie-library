@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useGetMovieByIdQuery } from 'redux/moviesSlice';
 import {
@@ -20,7 +22,6 @@ import { Cast } from 'components/Cast';
 import { Reviews } from 'components/Reviews';
 import { VisuallyHidden } from 'utils/common.styled';
 import { useResize } from 'hooks/useResize';
-import { useEffect, useState } from 'react';
 import { size } from 'utils/variables.styled';
 import { Trailer } from 'components/Trailer';
 import { CastList } from 'components/CastList';
@@ -36,6 +37,12 @@ const MovieDetailsPage = () => {
   const [deviceTablet, setDeviceTablet] = useState(false);
   const { idMovFavorites, setIdMovFavorites, idMovQueue, setIdMovQueue } =
     useMoviesContext();
+
+  // ================================================================================
+
+  // console.log('data :>> ', data);
+
+  // ================================================================================
 
   useEffect(() => {
     if (
@@ -122,12 +129,10 @@ const MovieDetailsPage = () => {
           {idMovQueue.includes(movieId) ? 'remove from Queue' : 'add to Queue'}
         </button>
       </div>
-
       <TitleWrapp>
         <Title>Movie {title}</Title>
         <BtnGoToBack to={location.state?.from ?? '/'}>Go to back</BtnGoToBack>
       </TitleWrapp>
-
       <Section>
         <VisuallyHidden>Film description</VisuallyHidden>
 
@@ -250,7 +255,6 @@ const MovieDetailsPage = () => {
           </div>
         )}
       </Section>
-
       {isProdCompanies && (
         <Section>
           <VisuallyHidden>Product companies</VisuallyHidden>
@@ -270,17 +274,14 @@ const MovieDetailsPage = () => {
           </ProductCompanies>
         </Section>
       )}
-
       <Section>
         <VisuallyHidden>Movie trailer</VisuallyHidden>
         <Trailer movieId={movieId} />
       </Section>
-
       <Section>
         <VisuallyHidden>Cast of the film</VisuallyHidden>
         <Cast />
       </Section>
-
       <Section>
         <VisuallyHidden>Reviews for a movie:</VisuallyHidden>
         <Reviews />

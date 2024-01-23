@@ -4,8 +4,9 @@ import {
   useGetTrendDayQuery,
   useGetTrendWeekQuery,
 } from './moviesSlice';
-import { INITIAL_STATE_MOVIE_SEARCH } from 'utils/common';
 import { loadLocalStorage } from 'helpers/storage';
+import { INITIAL_STATE_MOVIE_SEARCH } from 'utils/common';
+import { API_KEY } from './moviesSlice';
 
 const MoviesContext = createContext();
 export const useMoviesContext = () => useContext(MoviesContext);
@@ -25,9 +26,8 @@ export const Context = ({ children }) => {
 
   const [idMovFavorites, setIdMovFavorites] = useState([]);
   const [idMovQueue, setIdMovQueue] = useState([]);
-
-  console.log('idMovFavorites :>> ', idMovFavorites);
-  console.log('idMovQueue :>> ', idMovQueue);
+  const [moviesFavorites, setMoviesFavorites] = useState([]);
+  // const [moviesQueue, setMoviesQueue] = useState([]);
 
   const {
     data: dataTrendWeek,
@@ -52,6 +52,26 @@ export const Context = ({ children }) => {
     if (localFavorites) setIdMovFavorites(loadLocalStorage('favorites'));
     if (localQueue) setIdMovQueue(loadLocalStorage('queue'));
   }, []);
+
+  // ===============================================================================================
+
+  useEffect(() => {
+    setMoviesFavorites([]);
+
+    idMovFavorites.forEach(idMovie => {
+      fetch(
+        `https://api.themoviedb.org/3/movie/${idMovie}?${API_KEY}&language=en-US`
+      )
+        .then(response => response.json())
+        .then(response => {
+          setMoviesFavorites(prev => [...prev, response]);
+        })
+        .catch(err => console.error(err));
+    });
+  }, [idMovFavorites]);
+  console.log('moviesFavorites :>> ', moviesFavorites);
+
+  // ===============================================================================================
 
   useEffect(() => {
     if (isLoading || error) return;
@@ -124,6 +144,9 @@ export const Context = ({ children }) => {
 
         idMovQueue,
         setIdMovQueue,
+
+        moviesFavorites,
+        setMoviesFavorites,
       }}
     >
       {children}
