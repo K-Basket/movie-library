@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkmovie_library=self.webpackChunkmovie_library||[]).push([[797],{4797:function(e,r,n){n.r(r);var i=n(184);r.default=function(){return(0,i.jsxs)(i.Fragment,{children:[(0,i.jsx)("h1",{children:"Movies pages"}),(0,i.jsx)("p",{children:"The page is under development."})]})}}}]);
-//# sourceMappingURL=797.6958ef20.chunk.js.map
