@@ -55,6 +55,21 @@ export const moviesSlice = createApi({
   }),
 });
 
+export const fetchByIdsMovies = (idsMovies, setState) => {
+  setState([]);
+
+  idsMovies.forEach(idMovie => {
+    fetch(
+      `https://api.themoviedb.org/3/movie/${idMovie}?${API_KEY}&language=en-US`
+    )
+      .then(response => response.json())
+      .then(response => {
+        setState(prev => [...prev, response]);
+      })
+      .catch(err => console.error(err));
+  });
+};
+
 export const {
   useGetTrendWeekQuery,
   useGetTrendDayQuery,
