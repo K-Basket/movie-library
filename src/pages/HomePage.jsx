@@ -14,6 +14,8 @@ const HomePage = () => {
     isLoadingTrendDay,
     errorTrendDay,
     moviesSearch,
+    isLoadingSearch,
+    errorSearch,
     setPageSearch,
     activeMovGallery,
   } = useMoviesContext();
@@ -58,6 +60,8 @@ const HomePage = () => {
         <MovieGallery
           title={[`Results found for the query:`, `"${moviesSearch.query}"`]}
           dataMovies={moviesSearch}
+          isLoading={isLoadingSearch}
+          error={errorSearch}
           setPage={setPageSearch}
           route="movies/"
         />

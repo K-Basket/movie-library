@@ -26,6 +26,9 @@ export const MovieGallery = ({
   const { data: genresList } = useGetGenresListQuery();
   const [isActiveBtn, setIsActiveBtn] = useState(false);
 
+  // console.log('isActiveBtn :>> ', isActiveBtn);
+  // console.log('isLoading :>> ', isLoading);
+
   const { data, total } = dataMovies;
 
   const refItem = useRef();
@@ -49,7 +52,11 @@ export const MovieGallery = ({
   };
 
   if (isLoading && !error)
-    return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
+    return (
+      <h1 style={{ fontSize: '30px', color: 'salmon' }}>
+        ...loading... ...loading...
+      </h1>
+    );
 
   return (
     <>

@@ -142,6 +142,8 @@ export const Context = ({ children }) => {
 
         moviesSearch,
         setMoviesSearch,
+        isLoadingSearch,
+        errorSearch,
 
         isSearchResults,
 
