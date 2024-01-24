@@ -7,13 +7,16 @@ import {
 } from './moviesSlice';
 import { loadLocalStorage } from 'helpers/storage';
 import { INITIAL_STATE_MOVIE_SEARCH, INITIAL_STATE_MOVIES } from 'utils/common';
+// import { useLocation } from 'react-router-dom';
 
 const MoviesContext = createContext();
 export const useMoviesContext = () => useContext(MoviesContext);
 
 export const Context = ({ children }) => {
-  const [isActiveBtn, setIsActiveBtn] = useState(true);
+  // const { pathname } = useLocation();
+
   const [isSearchResults, setIsSearchResults] = useState(false);
+  const [activeMovGallery, setActiveMovGallery] = useState('week');
 
   const [pageWeek, setPageWeek] = useState(1);
   const [pageDay, setPageDay] = useState(1);
@@ -58,6 +61,12 @@ export const Context = ({ children }) => {
     if (localFavorites) setIdMovFavorites(loadLocalStorage('favorites'));
     if (localQueue) setIdMovQueue(loadLocalStorage('queue'));
   }, []);
+
+  // useEffect(() => {
+  //   if (pathname === '/') setActiveMovGallery('week');
+  //   if (pathname === '/movies') setActiveMovGallery('favorite');
+  //   console.log('pathname :>> ', pathname);
+  // }, [pathname]);
 
   useEffect(() => {
     fetchByIdsMovies(idMovFavorites, setMoviesFavorites, INITIAL_STATE_MOVIES);
@@ -111,8 +120,8 @@ export const Context = ({ children }) => {
   return (
     <MoviesContext.Provider
       value={{
-        isActiveBtn,
-        setIsActiveBtn,
+        activeMovGallery,
+        setActiveMovGallery,
 
         pageWeek,
         setPageWeek,

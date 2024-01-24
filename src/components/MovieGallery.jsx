@@ -27,7 +27,6 @@ export const MovieGallery = ({
   const [isActiveBtn, setIsActiveBtn] = useState(false);
 
   const { data, total } = dataMovies;
-  console.log('dataMovies :>> ', dataMovies);
 
   const refItem = useRef();
 

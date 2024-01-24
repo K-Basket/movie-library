@@ -18,27 +18,30 @@ import { INITIAL_STATE_MOVIE_SEARCH } from 'utils/common';
 
 export const Header = () => {
   const { pathname } = useLocation();
-  const { isActiveBtn, setIsActiveBtn, isSearchResults, setMoviesSearch } =
-    useMoviesContext();
+  const {
+    isSearchResults,
+    setMoviesSearch,
+    activeMovGallery,
+    setActiveMovGallery,
+  } = useMoviesContext();
 
-  const onMakeActiveBtn = evt => {
-    const content = evt.target.textContent;
-
+  const changeActiveMovGallery = value => {
     setMoviesSearch(INITIAL_STATE_MOVIE_SEARCH);
-
-    setIsActiveBtn(() => {
-      if (content === 'Favorites') return true;
-      if (content === 'Films of the week') return true;
-
-      return false;
-    });
+    setActiveMovGallery(value);
   };
 
   return (
     <HeaderWrap>
       <Nav>
-        <NavLinkStyled to="/">Home</NavLinkStyled>
-        <NavLinkStyled to="/movies">My Library</NavLinkStyled>
+        <NavLinkStyled to="/" onClick={() => setActiveMovGallery('week')}>
+          Home
+        </NavLinkStyled>
+        <NavLinkStyled
+          to="/movies"
+          onClick={() => setActiveMovGallery('favorite')}
+        >
+          My Library
+        </NavLinkStyled>
 
         {pathname === '/' && <SearchField />}
       </Nav>
@@ -52,10 +55,20 @@ export const Header = () => {
       <WrappLogoBtn>
         {pathname === '/movies' && (
           <WrappBtn>
-            <Button $active={isActiveBtn} onClick={onMakeActiveBtn}>
+            <Button
+              $active={activeMovGallery === 'favorite'}
+              onClick={() => {
+                changeActiveMovGallery('favorite');
+              }}
+            >
               Favorites
             </Button>
-            <Button $active={!isActiveBtn} onClick={onMakeActiveBtn}>
+            <Button
+              $active={activeMovGallery === 'queue'}
+              onClick={() => {
+                changeActiveMovGallery('queue');
+              }}
+            >
               Queue
             </Button>
           </WrappBtn>
@@ -63,17 +76,27 @@ export const Header = () => {
 
         {pathname === '/' && (
           <WrappBtn>
-            <Button $active={isActiveBtn} onClick={onMakeActiveBtn}>
+            <Button
+              $active={activeMovGallery === 'week'}
+              onClick={() => {
+                changeActiveMovGallery('week');
+              }}
+            >
               Films of the week
             </Button>
-            <Button $active={!isActiveBtn} onClick={onMakeActiveBtn}>
+            <Button
+              $active={activeMovGallery === 'day'}
+              onClick={() => {
+                changeActiveMovGallery('day');
+              }}
+            >
               Films of the day
             </Button>
           </WrappBtn>
         )}
 
         <WrappLinkLogo>
-          <LinkLogo to="/">
+          <LinkLogo to="/" onClick={() => setActiveMovGallery('week')}>
             <svg>
               <use href={`${sprite}#icon-film`}></use>
             </svg>

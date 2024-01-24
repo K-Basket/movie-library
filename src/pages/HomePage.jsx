@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react';
 
 const HomePage = () => {
   const {
-    isActiveBtn,
     moviesTrendWeek,
     moviesTrendDay,
     setPageWeek,
@@ -16,6 +15,7 @@ const HomePage = () => {
     errorTrendDay,
     moviesSearch,
     setPageSearch,
+    activeMovGallery,
   } = useMoviesContext();
   const refGallery = useRef();
   const [topPosition, setTopPosition] = useState();
@@ -30,30 +30,9 @@ const HomePage = () => {
     return () => window.removeEventListener('scroll', updatePosition);
   }, []);
 
-  // ============================================================================================
-
-  // console.log('moviesTrendWeek :>> ', moviesTrendWeek);
-  // console.log('moviesTrendDay :>> ', moviesTrendDay);
-  // console.log('moviesSearch :>> ', moviesSearch);
-  // ============================================================================================
-
-  if (!moviesSearch.isHidden)
-    return (
-      <div ref={refGallery}>
-        <MovieGallery
-          title={[`Search result for:`, `"${moviesSearch.query}"`]}
-          dataMovies={moviesSearch}
-          setPage={setPageSearch}
-          route="movies/"
-        />
-
-        {topPosition < 0 && <BtnGoTo />}
-      </div>
-    );
-
   return (
     <div ref={refGallery}>
-      {isActiveBtn && (
+      {activeMovGallery === 'week' && (
         <MovieGallery
           title={[`Popular films of the`, `Week`]}
           dataMovies={moviesTrendWeek}
@@ -63,13 +42,23 @@ const HomePage = () => {
           route="movies/"
         />
       )}
-      {!isActiveBtn && (
+
+      {activeMovGallery === 'day' && (
         <MovieGallery
           title={[`Popular films of the`, `Day`]}
           dataMovies={moviesTrendDay}
           isLoading={isLoadingTrendDay}
           error={errorTrendDay}
           setPage={setPageDay}
+          route="movies/"
+        />
+      )}
+
+      {activeMovGallery === 'search' && (
+        <MovieGallery
+          title={[`Results found for the query:`, `"${moviesSearch.query}"`]}
+          dataMovies={moviesSearch}
+          setPage={setPageSearch}
           route="movies/"
         />
       )}
