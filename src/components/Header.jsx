@@ -26,13 +26,6 @@ export const Header = () => {
 
     setMoviesSearch(INITIAL_STATE_MOVIE_SEARCH);
 
-    // setMoviesSearch({
-    //   data: [],
-    //   query: '',
-    //   total: 0,
-    //   isHidden: true,
-    // });
-
     setIsActiveBtn(() => {
       if (content === 'Favorites') return true;
       if (content === 'Films of the week') return true;

@@ -6,28 +6,28 @@ import {
   useGetTrendWeekQuery,
 } from './moviesSlice';
 import { loadLocalStorage } from 'helpers/storage';
-import { INITIAL_STATE_MOVIE_SEARCH } from 'utils/common';
+import { INITIAL_STATE_MOVIE_SEARCH, INITIAL_STATE_MOVIES } from 'utils/common';
 
 const MoviesContext = createContext();
 export const useMoviesContext = () => useContext(MoviesContext);
 
 export const Context = ({ children }) => {
   const [isActiveBtn, setIsActiveBtn] = useState(true);
-  const [isActiveBtnLoadMore, setIsActiveBtnLoadMore] = useState(true);
   const [isSearchResults, setIsSearchResults] = useState(false);
 
   const [pageWeek, setPageWeek] = useState(1);
   const [pageDay, setPageDay] = useState(1);
   const [pageSearch, setPageSearch] = useState(1);
 
-  const [moviesTrendWeek, setMoviesTrendWeek] = useState([]);
-  const [moviesTrendDay, setMoviesTrendDay] = useState([]);
+  const [moviesTrendWeek, setMoviesTrendWeek] = useState(INITIAL_STATE_MOVIES);
+  const [moviesTrendDay, setMoviesTrendDay] = useState(INITIAL_STATE_MOVIES);
   const [moviesSearch, setMoviesSearch] = useState(INITIAL_STATE_MOVIE_SEARCH);
 
   const [idMovFavorites, setIdMovFavorites] = useState([]);
   const [idMovQueue, setIdMovQueue] = useState([]);
-  const [moviesFavorites, setMoviesFavorites] = useState([]);
-  const [moviesQueue, setMoviesQueue] = useState([]);
+
+  const [moviesFavorites, setMoviesFavorites] = useState();
+  const [moviesQueue, setMoviesQueue] = useState();
 
   const {
     data: dataTrendWeek,
@@ -41,12 +41,15 @@ export const Context = ({ children }) => {
     error: errorTrendDay,
   } = useGetTrendDayQuery(pageDay);
 
-  const { data, isLoading, error, originalArgs } = useGetMoviesSearchQuery({
+  const {
+    data: dataSearch,
+    isLoading: isLoadingSearch,
+    error: errorSearch,
+    originalArgs,
+  } = useGetMoviesSearchQuery({
     search: moviesSearch?.query,
     page: pageSearch,
   });
-
-  // ===============================================================================================
 
   useEffect(() => {
     const localFavorites = loadLocalStorage('favorites');
@@ -57,58 +60,59 @@ export const Context = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    fetchByIdsMovies(idMovFavorites, setMoviesFavorites);
+    fetchByIdsMovies(idMovFavorites, setMoviesFavorites, INITIAL_STATE_MOVIES);
   }, [idMovFavorites]);
 
   useEffect(() => {
-    fetchByIdsMovies(idMovQueue, setMoviesQueue);
+    fetchByIdsMovies(idMovQueue, setMoviesQueue, INITIAL_STATE_MOVIES);
   }, [idMovQueue]);
 
-  // ===============================================================================================
+  useEffect(() => {
+    createDataMovies(
+      dataTrendWeek,
+      isLoadingTrendWeek,
+      errorTrendWeek,
+      setMoviesTrendWeek
+    );
+  }, [dataTrendWeek, isLoadingTrendWeek, errorTrendWeek]);
 
   useEffect(() => {
-    if (dataTrendWeek)
-      setMoviesTrendWeek(prev => [...prev, ...dataTrendWeek.results]);
-  }, [dataTrendWeek]);
+    createDataMovies(
+      dataTrendDay,
+      isLoadingTrendDay,
+      errorTrendDay,
+      setMoviesTrendDay
+    );
+  }, [dataTrendDay, isLoadingTrendDay, errorTrendDay]);
 
   useEffect(() => {
-    if (dataTrendDay)
-      setMoviesTrendDay(prev => [...prev, ...dataTrendDay.results]);
-  }, [dataTrendDay]);
-
-  useEffect(() => {
-    if (isLoading || error) return;
-
-    setMoviesSearch(prev => ({
-      ...prev,
-      ...{ data: [...prev.data, ...data.results] },
-      ...{ total: data.total_results },
-    }));
-  }, [data, isLoading, error]);
+    createDataMovies(dataSearch, isLoadingSearch, errorSearch, setMoviesSearch);
+  }, [dataSearch, isLoadingSearch, errorSearch]);
 
   // перевірка для виводу повідомлення під пошуковим вікном
   useEffect(() => {
     setIsSearchResults(
-      !data?.total_results && originalArgs?.search ? true : false
+      !dataSearch?.total_results && originalArgs?.search ? true : false
     );
-  }, [data, originalArgs]);
+  }, [dataSearch, originalArgs]);
 
-  useEffect(() => {
-    const { data, total } = moviesSearch;
+  const createDataMovies = (data, isLoading, error, setState) => {
+    if (isLoading || error) return;
 
-    if (data.length >= total && data.length)
-      return setIsActiveBtnLoadMore(false);
-    setIsActiveBtnLoadMore(true);
-  }, [moviesSearch]);
+    const { results, total_results } = data;
+
+    setState(prev => ({
+      ...prev,
+      ...{ data: [...prev.data, ...results] },
+      ...{ total: total_results },
+    }));
+  };
 
   return (
     <MoviesContext.Provider
       value={{
         isActiveBtn,
         setIsActiveBtn,
-
-        isActiveBtnLoadMore,
-        setIsActiveBtnLoadMore,
 
         pageWeek,
         setPageWeek,

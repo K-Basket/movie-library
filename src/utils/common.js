@@ -4,3 +4,5 @@ export const INITIAL_STATE_MOVIE_SEARCH = {
   total: 0,
   isHidden: true,
 };
+
+export const INITIAL_STATE_MOVIES = { data: [], total: 0 };

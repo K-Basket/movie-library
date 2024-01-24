@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   ButtonLoadMore,
@@ -10,7 +10,6 @@ import {
   Title,
 } from './MovieGallery.styled';
 import { useGetGenresListQuery } from 'redux/moviesSlice';
-import { useMoviesContext } from 'redux/Context';
 import { createGenresForTrendMovie } from 'helpers/helpers';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
@@ -25,9 +24,17 @@ export const MovieGallery = ({
 }) => {
   const location = useLocation();
   const { data: genresList } = useGetGenresListQuery();
-  const { isActiveBtnLoadMore } = useMoviesContext();
+  const [isActiveBtn, setIsActiveBtn] = useState(false);
+
+  const { data, total } = dataMovies;
+  console.log('dataMovies :>> ', dataMovies);
 
   const refItem = useRef();
+
+  useEffect(() => {
+    if (data.length < total) return setIsActiveBtn(true);
+    setIsActiveBtn(false);
+  }, [dataMovies, total, data]);
 
   const addNewPage = () => {
     setPage(prev => prev + 1);
@@ -52,37 +59,34 @@ export const MovieGallery = ({
         <span>{` ${title[1]}`}</span>
       </Title>
       <CardSet>
-        {dataMovies &&
-          dataMovies.map(
-            ({ id, poster_path, title, release_date, genre_ids }) => {
-              const poster = `https://image.tmdb.org/t/p/w500${
-                poster_path ?? imgPlaceholder
-              }`;
-              const [yearRelease] = release_date.split('-');
-              const genre = createGenresForTrendMovie(genresList, genre_ids);
+        {data.map(({ id, poster_path, title, release_date, genre_ids }) => {
+          const poster = `https://image.tmdb.org/t/p/w500${
+            poster_path ?? imgPlaceholder
+          }`;
+          const [yearRelease] = release_date.split('-');
+          const genre = createGenresForTrendMovie(genresList, genre_ids);
 
-              return (
-                <Item key={id} ref={refItem}>
-                  <Link to={`${route}${id}`} state={{ from: location }}>
-                    {/* <Link to={`${route}${id}`}> */}
-                    <Card>
-                      <CardThumb>
-                        <img src={poster} alt={title} />
-                      </CardThumb>
+          return (
+            <Item key={id} ref={refItem}>
+              <Link to={`${route}${id}`} state={{ from: location }}>
+                {/* <Link to={`${route}${id}`}> */}
+                <Card>
+                  <CardThumb>
+                    <img src={poster} alt={title} />
+                  </CardThumb>
 
-                      <CardContent>
-                        <h2>{title}</h2>
-                        <p>{`${genre} | ${yearRelease}`}</p>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                </Item>
-              );
-            }
-          )}
+                  <CardContent>
+                    <h2>{title}</h2>
+                    <p>{`${genre} | ${yearRelease}`}</p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </Item>
+          );
+        })}
       </CardSet>
 
-      {isActiveBtnLoadMore && (
+      {isActiveBtn && (
         <ButtonLoadMore $active={true} onClick={addNewPage}>
           load more
         </ButtonLoadMore>

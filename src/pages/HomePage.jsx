@@ -30,12 +30,19 @@ const HomePage = () => {
     return () => window.removeEventListener('scroll', updatePosition);
   }, []);
 
+  // ============================================================================================
+
+  // console.log('moviesTrendWeek :>> ', moviesTrendWeek);
+  // console.log('moviesTrendDay :>> ', moviesTrendDay);
+  // console.log('moviesSearch :>> ', moviesSearch);
+  // ============================================================================================
+
   if (!moviesSearch.isHidden)
     return (
       <div ref={refGallery}>
         <MovieGallery
           title={[`Search result for:`, `"${moviesSearch.query}"`]}
-          dataMovies={moviesSearch.data}
+          dataMovies={moviesSearch}
           setPage={setPageSearch}
           route="movies/"
         />

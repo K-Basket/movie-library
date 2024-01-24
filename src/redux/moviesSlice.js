@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const API_KEY = 'api_key=c05652c397b2dd01065e8cba4a8a45ab';
+const API_KEY = 'api_key=c05652c397b2dd01065e8cba4a8a45ab';
+const BASE_URL = 'https://api.themoviedb.org/3';
 
 export const moviesSlice = createApi({
   reducerPath: 'movies',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.themoviedb.org/3',
+    baseUrl: BASE_URL,
   }),
   tagTypes: ['movie'],
   endpoints: builder => ({
@@ -55,18 +56,20 @@ export const moviesSlice = createApi({
   }),
 });
 
-export const fetchByIdsMovies = (idsMovies, setState) => {
-  setState([]);
+export const fetchByIdsMovies = (idsMovies, setState, initialState) => {
+  setState(initialState);
 
   idsMovies.forEach(idMovie => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${idMovie}?${API_KEY}&language=en-US`
-    )
+    fetch(`${BASE_URL}/movie/${idMovie}?${API_KEY}&language=en-US`)
       .then(response => response.json())
       .then(response => {
         const genre_ids = response.genres.map(({ id }) => id);
 
-        setState(prev => [...prev, { ...response, genre_ids }]);
+        setState(prev => ({
+          ...prev,
+          data: [...prev.data, { ...response, genre_ids }],
+          total: prev.data.length + 1,
+        }));
       })
       .catch(err => console.error(err));
   });
