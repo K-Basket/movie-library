@@ -32,6 +32,8 @@ export const Context = ({ children }) => {
   const [moviesFavorites, setMoviesFavorites] = useState();
   const [moviesQueue, setMoviesQueue] = useState();
 
+  const [isActiveBtn, setIsActiveBtn] = useState(false);
+
   const {
     data: dataTrendWeek,
     isLoading: isLoadingTrendWeek,
@@ -158,6 +160,9 @@ export const Context = ({ children }) => {
 
         moviesQueue,
         setMoviesQueue,
+
+        isActiveBtn,
+        setIsActiveBtn,
       }}
     >
       {children}

@@ -10,8 +10,13 @@ export const SearchField = () => {
 
   const [valueForm, setValueForm] = useState(INITIAL_STATE);
   const { query } = valueForm;
-  const { moviesSearch, setMoviesSearch, setPageSearch, setActiveMovGallery } =
-    useMoviesContext();
+  const {
+    moviesSearch,
+    setMoviesSearch,
+    setPageSearch,
+    setActiveMovGallery,
+    setIsActiveBtn,
+  } = useMoviesContext();
 
   const handleGhange = evt => {
     const { name, value } = evt.target;
@@ -32,7 +37,7 @@ export const SearchField = () => {
       }));
 
     setActiveMovGallery('search');
-
+    setIsActiveBtn(false);
     setValueForm(INITIAL_STATE);
   };
 

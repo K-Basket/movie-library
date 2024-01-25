@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   ButtonLoadMore,
@@ -11,6 +11,7 @@ import {
 } from './MovieGallery.styled';
 import { useGetGenresListQuery } from 'redux/moviesSlice';
 import { createGenresForTrendMovie } from 'helpers/helpers';
+import { useMoviesContext } from 'redux/Context';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
@@ -24,19 +25,14 @@ export const MovieGallery = ({
 }) => {
   const location = useLocation();
   const { data: genresList } = useGetGenresListQuery();
-  const [isActiveBtn, setIsActiveBtn] = useState(false);
-
-  // console.log('isActiveBtn :>> ', isActiveBtn);
-  // console.log('isLoading :>> ', isLoading);
-
+  const { isActiveBtn, setIsActiveBtn } = useMoviesContext();
   const { data, total } = dataMovies;
-
   const refItem = useRef();
 
   useEffect(() => {
-    if (data.length < total) return setIsActiveBtn(true);
+    if (data.length < total && data.length) return setIsActiveBtn(true);
     setIsActiveBtn(false);
-  }, [dataMovies, total, data]);
+  }, [total, data, setIsActiveBtn]);
 
   const addNewPage = () => {
     setPage(prev => prev + 1);
@@ -52,11 +48,7 @@ export const MovieGallery = ({
   };
 
   if (isLoading && !error)
-    return (
-      <h1 style={{ fontSize: '30px', color: 'salmon' }}>
-        ...loading... ...loading...
-      </h1>
-    );
+    return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
 
   return (
     <>
