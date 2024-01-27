@@ -5,6 +5,7 @@ import { Footer } from './Footer';
 import { Header } from './Header';
 import { Container } from 'utils/container.styled';
 import { Wrapper } from './Layout.styled';
+import { Loader } from './Loader';
 
 export const Layout = () => {
   return (
@@ -16,7 +17,7 @@ export const Layout = () => {
       </header>
 
       <main>
-        <Suspense fallback={<h1>Loading... Layout</h1>}>
+        <Suspense fallback={<Loader />}>
           <Container>
             <Outlet />
           </Container>

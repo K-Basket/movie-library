@@ -12,6 +12,7 @@ import {
 import { useGetGenresListQuery } from 'redux/moviesSlice';
 import { createGenresForTrendMovie } from 'helpers/helpers';
 import { useMoviesContext } from 'redux/Context';
+import { Loader } from './Loader';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
 
@@ -47,8 +48,7 @@ export const MovieGallery = ({
     }, 250);
   };
 
-  if (isLoading && !error)
-    return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
+  if (isLoading && !error) return <Loader />;
 
   return (
     <>
