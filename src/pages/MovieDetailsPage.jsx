@@ -27,6 +27,7 @@ import { Trailer } from 'components/Trailer';
 import { CastList } from 'components/CastList';
 import { removeLocalStorage, saveLocalStorage } from 'helpers/storage';
 import { useMoviesContext } from 'redux/Context';
+import { Loader } from 'components/Loader';
 
 const MovieDetailsPage = () => {
   const location = useLocation();
@@ -48,10 +49,9 @@ const MovieDetailsPage = () => {
     setDeviceTablet(false);
   }, [currentScreenWidth]);
 
-  if (isLoading && !error)
-    return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
+  if (isLoading && !error) return <Loader />;
 
-  if (!data) return;
+  // if (!data) return; // ???????????????
 
   const {
     original_title,
