@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/movie-library/static/css/main.ca2743d5.css",
-    "main.js": "/movie-library/static/js/main.8958a4d8.js",
+    "main.js": "/movie-library/static/js/main.a2ca04b6.js",
     "static/js/983.0c3b8e20.chunk.js": "/movie-library/static/js/983.0c3b8e20.chunk.js",
     "static/js/797.9e02e8a7.chunk.js": "/movie-library/static/js/797.9e02e8a7.chunk.js",
     "static/media/header-bg-desk-2x.jpg": "/movie-library/static/media/header-bg-desk-2x.3fa3b850c2114d5c1621.jpg",
@@ -13,12 +13,12 @@
     "static/media/sprite.svg": "/movie-library/static/media/sprite.0d9a7db182a2ea003557b00591954aca.svg",
     "index.html": "/movie-library/index.html",
     "main.ca2743d5.css.map": "/movie-library/static/css/main.ca2743d5.css.map",
-    "main.8958a4d8.js.map": "/movie-library/static/js/main.8958a4d8.js.map",
+    "main.a2ca04b6.js.map": "/movie-library/static/js/main.a2ca04b6.js.map",
     "983.0c3b8e20.chunk.js.map": "/movie-library/static/js/983.0c3b8e20.chunk.js.map",
     "797.9e02e8a7.chunk.js.map": "/movie-library/static/js/797.9e02e8a7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ca2743d5.css",
-    "static/js/main.8958a4d8.js"
+    "static/js/main.a2ca04b6.js"
   ]
 }
