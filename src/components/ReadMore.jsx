@@ -3,20 +3,20 @@ import { Text, TextReadMore } from './Reviews.styled';
 
 export const ReadMore = ({ children }) => {
   const text = children;
-  const [isReadMore, setIsReadMore] = useState(true);
+  const [showMore, setIsReadMore] = useState(true);
   const numCharacters = 300;
 
   const toggleReadMore = () => {
-    setIsReadMore(!isReadMore);
+    setIsReadMore(!showMore);
   };
 
   return (
     <Text>
-      {isReadMore ? text.slice(0, numCharacters) : text}
+      {showMore ? text.slice(0, numCharacters) : text}
 
-      {text.length >= numCharacters && (
+      {text.length > numCharacters && (
         <TextReadMore onClick={toggleReadMore}>
-          {isReadMore ? ' ...read more' : ' show less'}
+          {showMore ? ' ...read more' : ' show less'}
         </TextReadMore>
       )}
     </Text>

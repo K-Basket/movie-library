@@ -4,13 +4,17 @@ import { useGetUserReviewsMovieQuery } from 'redux/moviesSlice';
 import { Text, TitleAuthorRewiews, TitleWrapp } from './Reviews.styled';
 import { ReadMore } from './ReadMore';
 import { BtnSeeMore } from './BtnSeeMore';
+import { Loader } from './Loader';
+import { getLimitedData } from 'helpers/getLimitedData';
 
 export const Reviews = () => {
   const { id: movieId } = useParams();
   const { data, isLoading, error } = useGetUserReviewsMovieQuery(movieId);
+
   const [dataReviews, setDataReviews] = useState([]);
-  const [isActive, setIsActive] = useState(false);
-  const numberReviews = 3;
+  const [showMore, setShowMore] = useState(false);
+  const [isActiveBtn, setIsActiveBtn] = useState(false);
+  const numberOfReviews = 3;
 
   const descendingReviews = useMemo(() => {
     if (data) {
@@ -23,23 +27,18 @@ export const Reviews = () => {
 
   useEffect(() => {
     if (descendingReviews) {
-      if (isActive) return setDataReviews(descendingReviews);
+      if (descendingReviews.length > numberOfReviews) setIsActiveBtn(true);
+      if (showMore) return setDataReviews(descendingReviews);
 
-      const res = [];
-
-      for (let i = 0; i < numberReviews; i += 1) {
-        if (descendingReviews[i]) res.push(descendingReviews[i]);
-      }
-      setDataReviews(res);
+      getLimitedData(descendingReviews, numberOfReviews, setDataReviews);
     }
-  }, [data, isActive, descendingReviews, numberReviews]);
+  }, [data, showMore, descendingReviews, numberOfReviews]);
 
-  const makeActive = () => {
-    setIsActive(!isActive);
+  const toggleShowMore = () => {
+    setShowMore(!showMore);
   };
 
-  if (isLoading && !error)
-    return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
+  if (isLoading && !error) return <Loader />;
 
   return (
     <>
@@ -65,9 +64,9 @@ export const Reviews = () => {
         })}
       </ul>
 
-      {dataReviews.length >= numberReviews && (
-        <BtnSeeMore click={makeActive}>
-          {isActive ? 'see less reviews' : 'see more reviews'}
+      {isActiveBtn && (
+        <BtnSeeMore click={toggleShowMore}>
+          {showMore ? 'see less reviews' : 'see more reviews'}
         </BtnSeeMore>
       )}
     </>

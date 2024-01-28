@@ -51,8 +51,6 @@ const MovieDetailsPage = () => {
 
   if (isLoading && !error) return <Loader />;
 
-  // if (!data) return; // ???????????????
-
   const {
     original_title,
     title,
@@ -123,6 +121,7 @@ const MovieDetailsPage = () => {
           {idMovQueue.includes(movieId) ? 'remove from Queue' : 'add to Queue'}
         </button>
       </div>
+
       <TitleWrapp>
         <Title>Movie {title}</Title>
         <BtnGoToBack to={location.state?.from ?? '/'}>Go to back</BtnGoToBack>
@@ -252,6 +251,7 @@ const MovieDetailsPage = () => {
       {isProdCompanies && (
         <Section>
           <VisuallyHidden>Product companies</VisuallyHidden>
+
           <ProductCompanies>
             {production_companies.map(
               ({ id, logo_path }) =>
@@ -268,14 +268,17 @@ const MovieDetailsPage = () => {
           </ProductCompanies>
         </Section>
       )}
+
       <Section>
         <VisuallyHidden>Movie trailer</VisuallyHidden>
         <Trailer movieId={movieId} />
       </Section>
+
       <Section>
         <VisuallyHidden>Cast of the film</VisuallyHidden>
         <Cast />
       </Section>
+
       <Section>
         <VisuallyHidden>Reviews for a movie:</VisuallyHidden>
         <Reviews />
