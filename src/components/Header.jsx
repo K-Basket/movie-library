@@ -36,12 +36,7 @@ export const Header = () => {
         <NavLinkStyled to="/" onClick={() => setActiveMovGallery('week')}>
           Home
         </NavLinkStyled>
-        <NavLinkStyled
-          to="/movies"
-          onClick={() => setActiveMovGallery('favorite')}
-        >
-          My Library
-        </NavLinkStyled>
+        <NavLinkStyled to="/movies">My Library</NavLinkStyled>
 
         {pathname === '/' && <SearchField />}
       </Nav>

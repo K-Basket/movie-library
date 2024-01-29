@@ -6,17 +6,24 @@ import { BtnGoTo } from 'components/BtnGoTo';
 const MoviesPage = () => {
   const refGallery = useRef();
   const [topPosition, setTopPosition] = useState();
-  const { moviesFavorites, moviesQueue, activeMovGallery } = useMoviesContext();
+  const {
+    moviesFavorites,
+    moviesQueue,
+    activeMovGallery,
+    setActiveMovGallery,
+  } = useMoviesContext();
 
   useEffect(() => {
+    setActiveMovGallery('favorite');
+
     const updatePosition = () => {
       const { top } = refGallery.current.getBoundingClientRect();
       setTopPosition(top);
     };
-
     window.addEventListener('scroll', updatePosition);
+
     return () => window.removeEventListener('scroll', updatePosition);
-  }, []);
+  }, [setActiveMovGallery]);
 
   return (
     <div ref={refGallery}>
