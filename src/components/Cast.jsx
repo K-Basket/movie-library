@@ -14,7 +14,6 @@ import {
 import { size } from 'utils/variables.styled';
 import { useResize } from 'hooks/useResize';
 import { BtnSeeMore } from './BtnSeeMore';
-import { Loader } from './Loader';
 import { getLimitedData } from 'helpers/getLimitedData';
 
 const imgPlaceholder = '/dykOcAqI01Fci5cKQW3bEUrPWwU.jpg';
@@ -55,7 +54,8 @@ export const Cast = () => {
     setShowMore(!showMore);
   };
 
-  if (isLoading && !error) return <Loader />;
+  // if (isLoading && !error) return <Loader />;
+  if (isLoading && !error) return;
 
   return (
     <>

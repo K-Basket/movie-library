@@ -18,16 +18,18 @@ import {
   TitleWrapp,
 } from './MovieDetailsPage.styled';
 import { addCommaDelimiter } from 'helpers/helpers';
-import { Cast } from 'components/Cast';
-import { Reviews } from 'components/Reviews';
 import { VisuallyHidden } from 'utils/common.styled';
 import { useResize } from 'hooks/useResize';
 import { size } from 'utils/variables.styled';
-import { Trailer } from 'components/Trailer';
-import { CastList } from 'components/CastList';
+
 import { removeLocalStorage, saveLocalStorage } from 'helpers/storage';
 import { useMoviesContext } from 'redux/Context';
 import { Loader } from 'components/Loader';
+
+import { Reviews } from 'components/Reviews';
+import { Trailer } from 'components/Trailer';
+import { Cast } from 'components/Cast';
+import { CastList } from 'components/CastList';
 
 const MovieDetailsPage = () => {
   const location = useLocation();

@@ -4,7 +4,6 @@ import { useGetUserReviewsMovieQuery } from 'redux/moviesSlice';
 import { Text, TitleAuthorRewiews, TitleWrapp } from './Reviews.styled';
 import { ReadMore } from './ReadMore';
 import { BtnSeeMore } from './BtnSeeMore';
-import { Loader } from './Loader';
 import { getLimitedData } from 'helpers/getLimitedData';
 
 export const Reviews = () => {
@@ -38,7 +37,7 @@ export const Reviews = () => {
     setShowMore(!showMore);
   };
 
-  if (isLoading && !error) return <Loader />;
+  if (isLoading && !error) return;
 
   return (
     <>

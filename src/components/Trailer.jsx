@@ -3,10 +3,10 @@ import { useGetTrailerByIdQuery } from 'redux/moviesSlice';
 import { Item, List, WrappTrailer, YoutubeStyle } from './Trailer.styled';
 
 export const Trailer = ({ movieId }) => {
-  const { data } = useGetTrailerByIdQuery(movieId);
+  const { data, isLoading, error } = useGetTrailerByIdQuery(movieId);
   const [videoId, setVideoId] = useState('');
 
-  if (!data) return;
+  if (isLoading && !error) return;
 
   const { results } = data;
   if (results.length === 0) return;

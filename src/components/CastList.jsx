@@ -3,10 +3,7 @@ import { useGetCastMovieQuery } from 'redux/moviesSlice';
 export const CastList = ({ movieId, num }) => {
   const { data, isLoading, error } = useGetCastMovieQuery(movieId);
 
-  if (isLoading && !error)
-    return <h1 style={{ fontSize: '30px', color: 'salmon' }}>...loading...</h1>;
-
-  if (!data) return;
+  if (isLoading && !error) return;
 
   const { cast } = data;
 
