@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useGetTrailerByIdQuery } from 'redux/moviesSlice';
 import { Item, List, WrappTrailer, YoutubeStyle } from './Trailer.styled';
 
-export const Trailer = ({ movieId }) => {
-  const { data, isLoading, error } = useGetTrailerByIdQuery(movieId);
+export const Trailer = () => {
+  const { id: movieIdw } = useParams();
+  const { data, isLoading, error } = useGetTrailerByIdQuery(movieIdw);
   const [videoId, setVideoId] = useState('');
 
   if (isLoading && !error) return;

@@ -273,7 +273,7 @@ const MovieDetailsPage = () => {
 
       <Section>
         <VisuallyHidden>Movie trailer</VisuallyHidden>
-        <Trailer movieId={movieId} />
+        <Trailer />
       </Section>
 
       <Section>
